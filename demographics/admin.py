@@ -17,7 +17,7 @@ class PreTestQuestionAdmin(admin.ModelAdmin):
     list_display = ['question_number', 'question']
 
 class PreTestAnswerAdmin(admin.ModelAdmin):
-    list_display = ['answer', 'choice_text']
+    list_display = ['answer', 'choices']
 
 admin.site.register(User, UserAdmin)
 admin.site.register(PostTestQuestion)
