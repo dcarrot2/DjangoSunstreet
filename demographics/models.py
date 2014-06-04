@@ -13,7 +13,7 @@ class Age(models.Model):
     age = models.CharField(max_length = 10)
     ageCount = models.IntegerField(default=0)
     def __unicode__(self):  # Python 3: def __str__(self):
-            return self.age
+        return self.age
 
 class Gender(models.Model):
     gender = models.CharField(max_length = 10)
