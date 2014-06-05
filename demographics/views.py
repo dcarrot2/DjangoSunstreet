@@ -13,11 +13,13 @@ import json #for json encoding, decoding
 
 from models import Age, Gender, Zipcode, User
 
+
 numUsers = 1
 
 def index(request):
     return HttpResponse("Hello World. You are at the poll index")
 
+#receives incoming data from android about user demographics
 @csrf_exempt
 def recieveDataFromAndroid(request):
     print "Post from Android"
@@ -29,7 +31,10 @@ def recieveDataFromAndroid(request):
         z = str(data["Zip"])
         a = str(data["Age"])
         g = str(data["Gender"])
+        #displays the age gender and zip code of the user on the console
         print "User is a ", g, " from ", z, "\nAge: ", a
+        #uses premade zipcode, age and gender objects to help create a new user;
+        #this does not work if the zipcodes, agegroups, and gender are not entered in the database to begin with
         selectedZip = Zipcode.objects.get(zipcode = z)
        # print selectedZip
         selectedAgeGroup = Age.objects.get(age= a)
@@ -43,11 +48,11 @@ def recieveDataFromAndroid(request):
     except:
         print "Exception. Could Not Parse JSON\n"
 
-
+    #increments the count of the selected age group, the zip and the gender intered by the user
     selectedAgeGroup.ageCount += 1
     selectedZip.count += 1
     selectedGender.count += 1
-
+    #creates a new user to store in the database
     u = User(zip=selectedZip, age=selectedAgeGroup, gender=selectedGender, userCount = numUsers)
     numUsers += 1
     u.save()
@@ -56,13 +61,21 @@ def recieveDataFromAndroid(request):
 
 
     return HttpResponse("")
-
+#displays a graph on a url mapped demographics/graph/
+#does not work yet
+@csrf_exempt
 def graph(request):
-    x = [1,2,3,4,5,6]
-    y = [5,2,6,7,8,9]
-    plot(x,y, linewidth=2)
-    xlabel('x axis')
-    ylabel('y axis')
+
+    zipcodeList = Zipcode.objects.all()
+    zipList = []
+    zipCount = []
+    for i in zipcodeList:
+        zipList.append(i.zipcode)
+        zipCount.append(i.count)
+    #y = [5,2,6,7,8,9]
+    plot(zipList,zipCount)
+    xlabel('Zip Codes')
+    ylabel('Users')
     grid(True)
 
 
