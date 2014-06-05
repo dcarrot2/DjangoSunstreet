@@ -5,13 +5,14 @@ def populate():
 	#list to make question objects
 	prequestionlist = ["What is the main thing you learned from the Life Skills training class?",
 			"How has the class changed the way you act?",
-			"Did you talk with your family or friends about what you learned in the class?", "Has the class changed the amount of alcohol or drugs you use?", "How likely are you to be involved in violent or 'risky' behavior now?","Which best describes how much you have been involved in gang activity over the last 30 days: (check one)", "Has the class changed your attitudes about gangs?","Overall, how important is this class to you life?"]
+			"Did you talk with your family or friends about what you learned in the class?", "Has the class changed the amount of alcohol or drugs you use?", "How likely are you to be involved in violent or 'risky' behavior now?","Which best describes how much you have been involved in gang activity over the last 30 days: (check one)", "Has the class changed your attitudes about gangs?","Overall, how important is this class to your life?"]
 	
 	#list that will eventually hold the question objects. Needed to populate answers with their 		specific questions
 	questionobjectlist = []	
 
 	#list to make answer objects
-	preanswerlist = ["Yes","No","I drink/use about the same","I drink/use a little less now","I drink/use a lot less now","I don't drink/use at all now","Very likely","Somewhat likely","Not likely at all","Very involved","Somewhat involved","Not too involved","Not at all involved","I still think gangs are cool","I'm not so sure they're cool now","I don't think they're cool at all now","Very important","Kind of important","Not very important"]
+	preanswerlist = ["Yes","No","I drink/use about the same","I drink/use a little less now","I drink/use a lot less now","I don't drink/use at all now","Very likely","Somewhat likely","Not likely at all","Very involved","Somewhat involved","Not too involved","Not at all involved",
+"I still think gangs are cool","I'm not so sure they're cool now","I don't think they're cool at all now","Very important","Kind of important","Not very important"]
 	
 	#run through list and add to database
 	for i in range(0, len(prequestionlist)):

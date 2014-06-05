@@ -3,7 +3,10 @@
 	<head>
 		<title>Life Skills Survey</title>
 		<meta charset = "utf-8" />
+		<link rel="stylesheet" type="text/css"href="/static/lifeskills/smalldevice.css" />
+		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			320px)" href="/static/lifeskills/smalldevice.css" />
 		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			480px)" href="/static/lifeskills/smalldevice.css" />
+		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			1024px)" href="/static/lifeskills/smalldevice.css" />
 		
 	
 	</head>
@@ -18,14 +21,11 @@
 		
 		<p>{{first_question}}</p>
 
-		<textarea>
-		
-		</textarea>
+		<textarea></textarea>
 
 		<p>{{second_question}}</p>
 
-		<textarea rows="4" cols="50">
-		</textarea>
+		<textarea rows="4" cols="50"></textarea>
 		
 		<p>{{third_question}}</p>
 		{% for choice in third_question.pretestanswer_set.all %}

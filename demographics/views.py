@@ -53,10 +53,14 @@ def recieveDataFromAndroid(request):
     selectedAgeGroup.ageCount += 1
     selectedZip.count += 1
     selectedGender.count += 1
+    
     #creates a new user to store in the database
     u = User(zip=selectedZip, age=selectedAgeGroup, gender=selectedGender, userCount = numUsers)
     numUsers += 1
     u.save()
+    selectedAgeGroup.save()
+    selectedZip.save()
+    selectedGender.save()
     #else:
 
 
@@ -71,11 +75,13 @@ def graph(request):
     zipList = []
     zipCount = []
     for i in zipcodeList:
-        zipList.append(str(i.zipcode))
-        zipCount.append(str(i.count))
-    n_groups = zipList
+        zipList.append(int(i.zipcode))
+        zipCount.append(int(i.count))
+	print i.zipcode
+	print i.count
+    n_groups = len(zipList)
     index = np.arange(n_groups)
-    rects1 = bar(index, zipCount, .25, alpha=opacity, color = 'b', label="Zip Codes")
+    rects1 = bar(index, zipCount, .15, alpha=.4, color = 'b', label="Zip Codes")
     #y = [5,2,6,7,8,9]
 
     bar(zipList,zipCount)
@@ -85,7 +91,7 @@ def graph(request):
     xlabel('Zip Codes')
     ylabel('Users')
     title("Zip Codes Serviced by Sunstreet App")
-    xticks(index+.25, zipList)
+    xticks(index+.15, zipList)
     legend()
     tight_layout()
     

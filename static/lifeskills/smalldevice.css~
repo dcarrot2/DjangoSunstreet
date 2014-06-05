@@ -1,6 +1,10 @@
+body{
+background-color: #FFFF99;
+}
+
 .mainHead h1{
 	/*Cool header at the top*/
-	background-color: #FFFFFF;
+	background-color: #e66954;
 	border: 1px solid #999999;
 	color: #222222;
 	display: block;
@@ -27,9 +31,11 @@ textarea{
 
 label {
 	font-size: 400%;
+	padding-left: 1cm;
 }
 
 input[type=radio]{
+	margin-left: 45px;
 	width: 3em;
 	height: 3em;
 }
