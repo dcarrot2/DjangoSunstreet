@@ -75,7 +75,6 @@ def graph(request):
     zipList = []
     zipCount = []
     for i in zipcodeList:
-
         zipList.append(int(i.zipcode))
         zipCount.append(int(i.count))
 	print i.zipcode
@@ -83,7 +82,6 @@ def graph(request):
     n_groups = len(zipList)
     index = np.arange(n_groups)
     rects1 = bar(index, zipCount, .25, alpha=.4, color = 'r', label="Zip Codes")
-
     #y = [5,2,6,7,8,9]
 
     #bar(zipList,zipCount)
@@ -93,10 +91,10 @@ def graph(request):
     xlabel('Zip Codes')
     ylabel('Users')
     title("Zip Codes Serviced by Sunstreet App")
-    xticks(index+.25, zipList, rotation=69)
+    xticks(index+.25, zipList, rotation=90)
     legend()
     tight_layout()
-
+    
     #grid(True)
 
 
