@@ -14,13 +14,13 @@
 
 		{% csrf_token %}
 		
-		<p align = "center">{{first_question}}</p>
+		<p>{{first_question}}</p>
 
 		<textarea rows="4" cols="50">
 		Enter response here.
 		</textarea>
 
-		<p align  = "center">{{second_question}}</p>
+		<p>{{second_question}}</p>
 
 		<textarea rows="4" cols="50">
 		Enter response here.

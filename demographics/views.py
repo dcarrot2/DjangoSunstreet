@@ -73,7 +73,7 @@ def graph(request):
         zipList.append(i.zipcode)
         zipCount.append(i.count)
     #y = [5,2,6,7,8,9]
-    plot(zipList,zipCount)
+    bar(zipList,zipCount)
     xlabel('Zip Codes')
     ylabel('Users')
     grid(True)
@@ -83,7 +83,7 @@ def graph(request):
 
     canvas = pylab.get_current_fig_manager().canvas
     canvas.draw()
-    graphIMG = PIL.Image.fromstring("RGB", canvas.get_width_height(), canvas.tostring_rgb())
+    graphIMG = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
     graphIMG.save(buffer, "PNG")
     pylab.close()
 
