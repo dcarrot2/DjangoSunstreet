@@ -71,11 +71,13 @@ def graph(request):
     zipList = []
     zipCount = []
     for i in zipcodeList:
-        zipList.append(str(i.zipcode))
-        zipCount.append(str(i.count))
-    n_groups = zipList
+        print int(i.zipcode)
+        zipList.append(int(i.zipcode))
+        print int(i.count)
+        zipCount.append(int(i.count))
+    n_groups = len(zipList)
     index = np.arange(n_groups)
-    rects1 = bar(index, zipCount, .25, alpha=opacity, color = 'b', label="Zip Codes")
+    rects1 = bar(index, zipCount, .25, alpha=.4, color = 'b', label="Zip Codes")
     #y = [5,2,6,7,8,9]
     #bar(zipList,zipCount)
     xlabel('Zip Codes')
@@ -84,7 +86,7 @@ def graph(request):
     xticks(index+.25, zipList)
     legend()
     tight_layout()
-    
+
     #grid(True)
 
 
