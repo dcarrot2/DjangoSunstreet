@@ -9,15 +9,13 @@
 	margin-bottom: -1px;
 	padding: 12px 10px;
 	text-decoration: none;
+	text-align:center;
 }
 
-p{
-	text-align: center;
 
-
-
-
-
+textarea{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
-
 
