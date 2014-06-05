@@ -7,6 +7,7 @@ from pylab import *
 import PIL
 import PIL.Image
 import StringIO
+import numpy as np
 
 
 import json #for json encoding, decoding
@@ -70,13 +71,25 @@ def graph(request):
     zipList = []
     zipCount = []
     for i in zipcodeList:
-        zipList.append(i.zipcode)
-        zipCount.append(i.count)
+        zipList.append(str(i.zipcode))
+        zipCount.append(str(i.count))
+    n_groups = zipList
+    index = np.arange(n_groups)
+    rects1 = bar(index, zipCount, .25, alpha=opacity, color = 'b', label="Zip Codes")
     #y = [5,2,6,7,8,9]
+
     bar(zipList,zipCount)
+
+    #bar(zipList,zipCount)
+
     xlabel('Zip Codes')
     ylabel('Users')
-    grid(True)
+    title("Zip Codes Serviced by Sunstreet App")
+    xticks(index+.25, zipList)
+    legend()
+    tight_layout()
+    
+    #grid(True)
 
 
     buffer = StringIO.StringIO()
