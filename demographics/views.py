@@ -81,17 +81,17 @@ def graph(request):
 	print i.count
     n_groups = len(zipList)
     index = np.arange(n_groups)
-    rects1 = bar(index, zipCount, .15, alpha=.4, color = 'b', label="Zip Codes")
+    rects1 = bar(index, zipCount, .25, alpha=.4, color = 'r', label="Zip Codes")
     #y = [5,2,6,7,8,9]
 
-    bar(zipList,zipCount)
+    #bar(zipList,zipCount)
 
     #bar(zipList,zipCount)
 
     xlabel('Zip Codes')
     ylabel('Users')
     title("Zip Codes Serviced by Sunstreet App")
-    xticks(index+.15, zipList)
+    xticks(index+.25, zipList, rotation=69)
     legend()
     tight_layout()
     
