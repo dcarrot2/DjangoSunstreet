@@ -68,7 +68,12 @@ def recieveDataFromAndroid(request):
     return HttpResponse("")
 #displays a graph on a url mapped demographics/graph/
 #does not work yet
-@csrf_exempt
+# attach some text labels
+def autolabel(rects):
+    for rect in rects:
+        height = rect.get_height()
+        plt.text(rect.get_x()+rect.get_width()/2., 1.05*height, '%d'%int(height),
+                ha='center', va='bottom')
 def graph(request):
 
     zipcodeList = Zipcode.objects.all()
@@ -91,13 +96,14 @@ def graph(request):
     xlabel('Zip Codes')
     ylabel('Users')
     title("Zip Codes Serviced by Sunstreet App")
-    xticks(index+.25, zipList, rotation=69)
+    xticks(index+.25, zipList, rotation=69, fontsize=12)
+    yticks(fontsize = 20)
     legend()
     tight_layout()
     
     #grid(True)
 
-
+    autolabel(rects1)
     buffer = StringIO.StringIO()
 
     canvas = pylab.get_current_fig_manager().canvas
