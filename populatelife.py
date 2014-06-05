@@ -11,7 +11,7 @@ def populate():
 	questionobjectlist = []	
 
 	#list to make answer objects
-	preanswerlist = ["Yes","No","I drink/use about the same","I drink/use a little less now","I drink/use a lot less now","I don't drink/use at all now","Very likely","Somewhat likely","Not likely at all","Very involved","Somewhat involved","Not too involved","Not at all involved","I still think gangs are cool","I'm not so sure they're cool now","I don't think they're cool at all now","Very important,","Kind of important","Not very important"]
+	preanswerlist = ["Yes","No","I drink/use about the same","I drink/use a little less now","I drink/use a lot less now","I don't drink/use at all now","Very likely","Somewhat likely","Not likely at all","Very involved","Somewhat involved","Not too involved","Not at all involved","I still think gangs are cool","I'm not so sure they're cool now","I don't think they're cool at all now","Very important","Kind of important","Not very important"]
 	
 	#run through list and add to database
 	for i in range(0, len(prequestionlist)):
@@ -52,10 +52,13 @@ def populate():
 	#print answers to screen
 	for a in PreTestAnswer.objects.all():
 		print str(a)
-
+	
+	#function that creates instance of PreTestQuestion
 def add_question(question, question_number):
 	p = PreTestQuestion.objects.get_or_create(question=question, question_number=question_number)[0]
 	return p
+
+	#function that creates instance of PreTestAnswer
 def add_answer(question, choices, votes=0):
 	c = PreTestAnswer.objects.get_or_create(answer=question, choices=choices, votes=votes)[0]
 	return c

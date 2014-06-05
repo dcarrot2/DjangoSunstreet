@@ -4,7 +4,7 @@
 	border: 1px solid #999999;
 	color: #222222;
 	display: block;
-	font-size: 17px;
+	font-size: 700%;
 	font-weight: bold;
 	margin-bottom: -1px;
 	padding: 12px 10px;
@@ -12,10 +12,24 @@
 	text-align:center;
 }
 
+p{
+	font-size: 500%;
+	text-align: left;
+	padding-left: 1cm;
+}
 
 textarea{
 	display: block;
-	margin-left: auto;
-	margin-right: auto;
+	width: 100%;
+	height: 600px;
+	font-size: 36pt;
 }
 
+label {
+	font-size: 400%;
+}
+
+input[type=radio]{
+	width: 3em;
+	height: 3em;
+}

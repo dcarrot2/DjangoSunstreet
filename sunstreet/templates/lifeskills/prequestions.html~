@@ -13,11 +13,13 @@
 		</header>
 
 		{% csrf_token %}
+
+	   
 		
 		<p>{{first_question}}</p>
 
-		<textarea rows="4" cols="50">
-		Enter response here.
+		<textarea>
+		
 		</textarea>
 
 		<p>{{second_question}}</p>
@@ -25,7 +27,37 @@
 		<textarea rows="4" cols="50">
 		Enter response here.
 		</textarea>
-
+		
+		<p>{{third_question}}</p>
+		{% for choice in third_question.pretestanswer_set.all %}
+			<input type="radio" name="choice3" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
+		{% endfor %}
+		<p>{{fourth_question}}</p>
+		{% for choice in fourth_question.pretestanswer_set.all %}
+			<input type="radio" name="choice4" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
+		{% endfor %}
+		<p>{{fifth_question}}</p>
+		{% for choice in fifth_question.pretestanswer_set.all %}
+			<input type="radio" name="choice5" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
+		{% endfor %}
+		<p>{{sixth_question}}</p>
+		{% for choice in sixth_question.pretestanswer_set.all %}
+			<input type="radio" name="choice6" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
+		{% endfor %}
+		<p>{{seventh_question}}</p>
+		{% for choice in seventh_question.pretestanswer_set.all %}
+			<input type="radio" name="choice7" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
+		{% endfor %}
+		<p>{{eighth_question}}</p>
+		{% for choice in eighth_question.pretestanswer_set.all %}
+			<input type="radio" name="choice8" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
+		{% endfor %}
 		
 		
 			

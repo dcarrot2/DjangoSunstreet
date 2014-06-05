@@ -9,12 +9,18 @@ def pretest(request):
         #that they require a text field for response
         first_question = PreTestQuestion.objects.get(question_number = 1)
         second_question = PreTestQuestion.objects.get(question_number = 2)
-	pre_questions = PreTestQuestion.objects.all()
+        third_question = PreTestQuestion.objects.get(question_number = 3)
+        fourth_question = PreTestQuestion.objects.get(question_number = 4)
+        fifth_question = PreTestQuestion.objects.get(question_number = 5)
+        sixth_question = PreTestQuestion.objects.get(question_number = 6)
+        seventh_question = PreTestQuestion.objects.get(question_number = 7)
+        eighth_question = PreTestQuestion.objects.get(question_number = 8)
 
-	for x in pre_questions:
-		print x
-
-	context = {"pre_questions": pre_questions, "first_question": first_question, "second_question": second_question}
+	context = {"first_question": first_question,
+                   "second_question": second_question, "third_question": third_question,
+                   "fourth_question": fourth_question, "fifth_question": fifth_question,
+                   "sixth_question": sixth_question, "seventh_question": seventh_question,
+                   "eighth_question": eighth_question}
 
 	return render(request, "lifeskills/prequestions.html", context)
 
