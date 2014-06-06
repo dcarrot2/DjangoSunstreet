@@ -22,7 +22,7 @@ def index(request):
 
 #receives incoming data from android about user demographics
 @csrf_exempt
-def recieveDataFromAndroid(request):
+def receiveDataFromAndroid(request):
     print "Post from Android"
     global numUsers
     try:
