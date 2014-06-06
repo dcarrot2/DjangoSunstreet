@@ -35,7 +35,15 @@ label {
 }
 
 input[type=radio]{
-	margin-left: 45px;
+	margin-left: 75px;
 	width: 3em;
 	height: 3em;
+}
+
+input[type=submit]{
+	font-size: 300%;
+	padding-top: 100px;
+	width: 40em;
+	height: 10em;
+	margin-left: 250px;
 }

@@ -41,13 +41,18 @@ def pretestvote(request):
 	sixth = get_object_or_404(PreTestQuestion, question_number=6)
 	seventh = get_object_or_404(PreTestQuestion, question_number=7)
 	eighth = get_object_or_404(PreTestQuestion, question_number=8)
+	
+	print first
+	print second
+	print seventh
+	print eighth
 
 	try:
 		firstTextResponse = request.POST['textarea1']
 		secondTextResponse = request.POST['textarea2']
 		
-		choiceFirst = PreTestAnswer.objects.get_or_create(answer=first, choices=firstTextResponse, votes=0)[0]
-                choiceSecond = PreTestAnswer.objects.get_or_create(answer=second, choices=secondTextResponse, votes=0)[0]
+		#choiceFirst = first.pretestanswer_set.get(pk=request.POST['textarea1'])
+		#choiceSecond = first.pretestanswer_set.get(pk=request.POST['textarea2'])
 		choiceThird = third.pretestanswer_set.get(pk=request.POST['choice3'])
 		choiceFourth = fourth.pretestanswer_set.get(pk=request.POST['choice4'])
 		choiceFifth = fifth.pretestanswer_set.get(pk=request.POST['choice5'])
@@ -55,8 +60,8 @@ def pretestvote(request):
 		choiceSeventh = seventh.pretestanswer_set.get(pk=request.POST['choice7'])
 		choiceEighth = eighth.pretestanswer_set.get(pk=request.POST['choice8'])	
 		
-		print "First choice: ", choiceFirst
-		print "Second choice: ", choiceSecond
+		print request.POST['textarea1']
+		print request.POST['textarea2']
 		print "Third choice: ", choiceThird
 		print "Fourth choice: ", choiceFourth
 		print "Fifth choice: ", choiceFifth
@@ -75,19 +80,15 @@ def pretestvote(request):
 		})
 	
 	else:
-                
 		
-		newUser = PreTestUser(preuser_num=numOfUser, question_one=choiceFirst,
-                                      question_two=choiceSecond,question_three=choiceThird,
-                                      question_four=choiceFourth, question_five=choiceFifth,
-                                      question_six=choiceSixth, question_seven=choiceSeventh,
-                                      question_eight=choiceEighth)
+		r = PreTestUser(preuser_num=numOfUser, question_three=choiceThird, 				question_four=choiceFourth, question_five=choiceFifth, 				question_six=choiceSixth, question_seven=choiceSeventh, 				question_eight=choiceEighth)
 
-                print "First text: ", firstTextResponse
 
 		print "pass"
 
-		
+		#r.pretestanswer_set.create(choices = 
+
+		#textResponseOne = r.
 		
 		choiceThird.votes += 1
 		choiceFourth.votes += 1
@@ -96,15 +97,14 @@ def pretestvote(request):
 		choiceSeventh.votes += 1
 		choiceEighth.votes += 1
 
-                newUser.save()
-                choiceThird.save()
-                choiceFourth.save()
-                choiceFifth.save()
-                choiceSixth.save()
-                choiceSeventh.save()
-                choiceEighth.save()
-
 		return HttpResponseRedirect(reverse('lifeskills:response'))
+
+
+
+
+
+
+
 
 def response(request):
 

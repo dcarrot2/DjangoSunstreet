@@ -7,28 +7,27 @@
 		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			320px)" href="/static/lifeskills/smalldevice.css" />
 		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			480px)" href="/static/lifeskills/smalldevice.css" />
 		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			1024px)" href="/static/lifeskills/smalldevice.css" />
+
 		
-	
 	</head>
 	<body class = "body">
 		<header class = "mainHead">
 			<h1> Life Skills Trainings Survey </h1>
 		</header>
 
-		{% csrf_token %}
+		{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-	   
+	   	<form action="{% url 'lifeskills:pretestvote' %}" method="post">
+
+		{% csrf_token %}
 		
 		<p>{{first_question}}</p>
 
-		<textarea>
-		
-		</textarea>
+		<textarea rows="4" cols="50" name = "textarea1"></textarea>
 
 		<p>{{second_question}}</p>
 
-		<textarea rows="4" cols="50">
-		</textarea>
+		<textarea rows="4" cols="50" name = "textarea2"></textarea>
 		
 		<p>{{third_question}}</p>
 		{% for choice in third_question.pretestanswer_set.all %}
@@ -61,9 +60,9 @@
 			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
 		{% endfor %}
 		
-		
+		<input type="submit" value="Submit" />
 			
-			
+		</form>
 	
 	</body>
 </html>
