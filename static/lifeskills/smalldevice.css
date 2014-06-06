@@ -39,3 +39,11 @@ input[type=radio]{
 	width: 3em;
 	height: 3em;
 }
+
+input[type=submit]{
+	font-size: 300%;
+	padding-top: 100px;
+	width: 10em;
+	height: 5em;
+	margin-left: 250px;
+}
