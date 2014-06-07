@@ -43,7 +43,7 @@ input[type=radio]{
 input[type=submit]{
 	font-size: 300%;
 	padding-top: 100px;
-	width: 40em;
-	height: 10em;
+	width: 10em;
+	height: 5em;
 	margin-left: 250px;
 }
