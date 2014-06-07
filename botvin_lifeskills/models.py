@@ -27,4 +27,8 @@ class User(models.Model):
         student_code = models.IntegerField()
         school_code = models.IntegerField()
         date_survey_taken = models.DateTimeField('date published')
+        section_a_questions = models.ForeignKey(Question)
+        section_b_questions = models.ForeignKey(Question)
+        section_c_questions = models.ForeignKey(Question)
+        section_d_questions = models.ForeignKey(Question)
 
