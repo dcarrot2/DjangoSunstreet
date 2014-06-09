@@ -7,14 +7,15 @@
 		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			320px)" href="/static/lifeskills/smalldevice.css" />
 		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			480px)" href="/static/lifeskills/smalldevice.css" />
 		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			1024px)" href="/static/lifeskills/smalldevice.css" />
-
+		<link rel="shortcut icon" href="/static/img/Sunstreet.jpg">
 		
 	</head>
 	<body class = "body">
 		<header class = "mainHead">
 			<h1> Life Skills Trainings PreSurvey </h1>
 		</header>
-
+		
+		<form action="{% url 'lifeskills:pretestvote' %}" method="post">
 		{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 	   
@@ -35,7 +36,9 @@
 			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
 		{% endfor %}
 
-		<input type="submit" value="Submit" />
+		<div class="buttonHolder">
+			<input type="submit" value="Submit" />
+		</div>
 		</form>
 	</body>
 </html>

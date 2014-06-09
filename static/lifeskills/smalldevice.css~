@@ -39,12 +39,14 @@ input[type=radio]{
 	height: 3em;
 }
 
-input[type=submit]{
-	font-size: 10px;
-	width: 135px;
-	height: 60px;
-	border: none;
-	margin: 0;
-	padding: 0;
+.buttonHolder{
+	text-align: center;
+	padding-top: 10px;
 	
+}
+
+.buttonHolder input{
+	width: 250px;
+	height: 150px;
+	font-size: 250%;
 }
