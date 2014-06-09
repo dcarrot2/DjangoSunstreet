@@ -12,57 +12,32 @@
 	</head>
 	<body class = "body">
 		<header class = "mainHead">
-			<h1> Life Skills Trainings Survey </h1>
+			<h1> Life Skills Trainings PreSurvey </h1>
 		</header>
 
 		{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-	   	<form action="{% url 'lifeskills:pretestvote' %}" method="post">
+	   
 
 		{% csrf_token %}
-		
+
 		<p>{{first_question}}</p>
 
-		<textarea rows="4" cols="50" name="textarea1"></textarea>
+		{% for choice in first_question.pretestanswer_set.all %}
+			<input type="radio" name="choice1" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
+		{% endfor %}
 
 		<p>{{second_question}}</p>
 
-		<textarea rows="4" cols="50" name="textarea2"></textarea>
-		
-		<p>{{third_question}}</p>
-		{% for choice in question.pretestanswer_set.all %}
-			<input type="radio" name="choice3" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+		{% for choice in second_question.pretestanswer_set.all %}
+			<input type="radio" name="choice2" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+
 			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
 		{% endfor %}
-		<p>{{fourth_question}}</p>
-		{% for choice in fourth_question.pretestanswer_set.all %}
-			<input type="radio" name="choice4" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
-		{% endfor %}
-		<p>{{fifth_question}}</p>
-		{% for choice in fifth_question.pretestanswer_set.all %}
-			<input type="radio" name="choice5" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
-		{% endfor %}
-		<p>{{sixth_question}}</p>
-		{% for choice in sixth_question.pretestanswer_set.all %}
-			<input type="radio" name="choice6" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
-		{% endfor %}
-		<p>{{seventh_question}}</p>
-		{% for choice in seventh_question.pretestanswer_set.all %}
-			<input type="radio" name="choice7" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
-		{% endfor %}
-		<p>{{eighth_question}}</p>
-		{% for choice in eighth_question.pretestanswer_set.all %}
-			<input type="radio" name="choice8" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
-		{% endfor %}
-		
+
 		<input type="submit" value="Submit" />
-			
 		</form>
-	
 	</body>
 </html>
+		

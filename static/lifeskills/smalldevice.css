@@ -1,7 +1,6 @@
 body{
 background-color: #FFFF99;
 }
-
 .mainHead h1{
 	/*Cool header at the top*/
 	background-color: #e66954;
@@ -17,7 +16,7 @@ background-color: #FFFF99;
 }
 
 p{
-	font-size: 500%;
+	font-size: 400%;
 	text-align: left;
 	padding-left: 1cm;
 }
@@ -30,7 +29,7 @@ textarea{
 }
 
 label {
-	font-size: 400%;
+	font-size: 350%;
 	padding-left: 1cm;
 }
 
@@ -41,9 +40,11 @@ input[type=radio]{
 }
 
 input[type=submit]{
-	font-size: 300%;
-	padding-top: 100px;
-	width: 10em;
-	height: 5em;
-	margin-left: 250px;
+	font-size: 25px;
+	width: 135px;
+	height: 60px;
+	border: none;
+	margin: 0;
+	padding: 0;
+	
 }
