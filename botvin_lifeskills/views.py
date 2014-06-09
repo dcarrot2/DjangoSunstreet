@@ -14,9 +14,32 @@ def botvinSection(request, section, school_level):
 
 
     context = {}
-    for i in range(0, len(questions)):
-        context["question_"+ str(i+1)] = questions[i]
+    # for i in range(0, len(questions)):
+    #     context["question_"+ str(i+1)] = questions[i]
+    #
+    context["questions"] = questions
+    context["section"] = section
+    context["school_level"] = school_level
     print context
+    return render(request, "botvin/displayquestions.html", context)
+def botvinSectionVote(request, section, school_level):
+    questions = []
+    for question in Question.objects.get_queryset().filter(seciton_letter=section).filter(school_level=school_level):
+        questions.append(question)
+    try:
+        responses = []
+        for i in range(0,len(questions)):
+            responses.append(Answer.objects.get(pk = request.POST['choice'+str(i+1)]))
+        for i in range(0, len(responses)):
+            print "Response " + str(i+1)+":" + responses[i]
+    except (KeyError, Question.DoesNotExist):
+        print("Check your code")
+
+        return render(request, 'botvin/displayquestions.html', {
+		'error_message': "You forgot to select one or more choices."})
 
 
-    return render(request, "lifeskills/prequestions.html", context)
+
+
+
+
