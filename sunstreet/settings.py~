@@ -9,11 +9,11 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-import os
+from os.path import dirname, join, abspath
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-#TEMPLATE_PATH = os.path.join(BASE_DIR, 'sunstreet/templates')
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'sunstreet/templates')
 
 STATIC_PATH = os.path.join(BASE_DIR,'static')
 
@@ -119,7 +119,7 @@ ROOT_URLCONF = 'sunstreet.urls'
 WSGI_APPLICATION = 'sunstreet.wsgi.application'
 
 TEMPLATE_DIRS = (
-    TEMPLATE_PATH = os.path.join(BASE_DIR, 'sunstreet/templates')
+    TEMPLATE_PATH,
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -132,11 +132,13 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'botvin_lifeskills',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'demographics'
+    'demographics',
+    'lifeskills',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

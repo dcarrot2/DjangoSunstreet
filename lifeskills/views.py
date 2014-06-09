@@ -95,6 +95,7 @@ def pretestvote(request):
 		choiceSixth.votes += 1
 		choiceSeventh.votes += 1
 		choiceEighth.votes += 1
+		
 
                 newUser.save()
                 choiceThird.save()
@@ -103,6 +104,8 @@ def pretestvote(request):
                 choiceSixth.save()
                 choiceSeventh.save()
                 choiceEighth.save()
+
+                numUser+=1
 
 		return HttpResponseRedirect(reverse('lifeskills:response'))
 
