@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 # Create your views here.
 
-def sectionAHSBotvin(request, section, school_level):
+def botvinSection(request, section, school_level):
             #We get the first two questions individually given
         #that they require a text field for response
     questions = []
