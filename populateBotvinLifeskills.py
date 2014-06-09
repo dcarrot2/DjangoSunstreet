@@ -183,5 +183,5 @@ def organizeSection(questionSet, lifeskillsSection, schoolLevel, answerSet):
 if __name__ == '__main__':
     print "Inscribing questions into database..."
     os.environ.setdefault('DJANGO_SETTINGS_MODULE',"sunstreet.settings")
-    from botvin_lifeskills.models import Question, Answer, SectionA, SectionB, SectionC, SectionD
+    from botvin_lifeskills.models import Question, Answer#, SectionA, SectionB, SectionC, SectionD
     populate()
