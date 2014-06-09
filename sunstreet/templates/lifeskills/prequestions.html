@@ -30,7 +30,7 @@
 		<textarea rows="4" cols="50" name="textarea2"></textarea>
 		
 		<p>{{third_question}}</p>
-		{% for choice in third_question.pretestanswer_set.all %}
+		{% for choice in question.pretestanswer_set.all %}
 			<input type="radio" name="choice3" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
 			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
 		{% endfor %}
