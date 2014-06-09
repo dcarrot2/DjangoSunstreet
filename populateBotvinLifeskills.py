@@ -91,39 +91,47 @@ def populate():
     sectionDAnswersHS910 = ["Never", "Almost Never", "Sometimes", "Almost Always", "Always"]
     #question 11 and 12 need the answers for section C for high school and middle school
 
+    schoolList = ["HS", "MS", "ES"]
+    sectionID = ["A","B","C","D"]
+
+    for school in schoolList:
+        for section in sectionID:
+            Botvin_Section.objects.get_or_create(section_letter = section, school_level = school)
+
+
 
     for i in range(0,len(sectionAQuestions)):
 
         if (i == 0):
-            add_question(sectionAQuestions[i], i+1, "A", "All")
+            add_question(sectionAQuestions[i], i+1, "A", "HS")
             for x in sectionAQuestion1Answers:
                 add_answer(Question.objects.get(question_number = 1), x)
         if(i == 1):
-            add_question(sectionAQuestions[i], i+1, "A","All")
+            add_question(sectionAQuestions[i], i+1, "A","HS")
             for x in sectionAQuestion2Answers:
                 add_answer(Question.objects.get(question_number = 2), x)
         if(i == 2):
-            add_question(sectionAQuestions[i], i+1, "A", "All")
+            add_question(sectionAQuestions[i], i+1, "A", "HS")
             for x in sectionAQuestion3Answers:
                 add_answer(Question.objects.get(question_number = 3), x)
         if(i==3):
-            add_question(sectionAQuestions[i], i+1, "A", "All")
+            add_question(sectionAQuestions[i], i+1, "A", "HS")
             for x in sectionAQuestion4Answers:
                 add_answer(Question.objects.get(question_number = 4), x)
         if(i == 4):
-            add_question(sectionAQuestions[i], i+1, "A", "All")
+            add_question(sectionAQuestions[i], i+1, "A", "HS")
             for x in sectionAQuestion5Answers:
                 add_answer(Question.objects.get(question_number = 5), x)
         if(i == 5):
-            add_question(sectionAQuestions[i], i+1, "A", "All")
+            add_question(sectionAQuestions[i], i+1, "A", "HS")
             for x in sectionAQuestion5Answers:
                 add_answer(Question.objects.get(question_number = 6), x)
         if(i == 6):
-            add_question(sectionAQuestions[i], i+1, "A", "All")
+            add_question(sectionAQuestions[i], i+1, "A", "HS")
             for x in sectionAQuestion6Answers:
                 add_answer(Question.objects.get(question_number = 7), x)
         if(i == 7):
-            add_question(sectionAQuestions[i], i+1, "A", "All")
+            add_question(sectionAQuestions[i], i+1, "A", "HS")
             for x in sectionAQuestion7Answers:
                 add_answer(Question.objects.get(question_number = 8), x)
         if(i == 8):
@@ -142,25 +150,25 @@ def populate():
         if (i <=7):
             add_question(hsSectionDQuestions[i], i+1, "D", "HS")
             for x in sectionDAnswers:
-                add_answer(Question.objects.get(question_number=i+1, section="D", school_level="HS"),x)
+                add_answer(Question.objects.get(question_number=i+1, section_letter="D", school_level="HS"),x)
         if(i > 7 and i < 10):
             add_question(hsSectionDQuestions[i], i+1, "D", "HS")
             for x in sectionDAnswersHS910:
-                add_answer(Question.objects.get(question_number=i+1, section="D", school_level = "HS"),x)
+                add_answer(Question.objects.get(question_number=i+1, section_letter="D", school_level = "HS"),x)
         if(i >= 10):
             add_question(hsSectionDQuestions[i], i+1, "D", "HS")
             for x in sectionCAnswers:
-                add_answer(Question.objects.get(question_number=i+1, section="D", school_level="HS"),x)
+                add_answer(Question.objects.get(question_number=i+1, section_letter="D", school_level="HS"),x)
 
     for i in range(0, len(msSectionDQuestions)):
         if(i<10):
             add_question(msSectionDQuestions[i], i+1, "D","MS")
             for x in sectionDAnswers:
-                add_answer(Question.objects.get(question_number=i+1, section="D", school_level="MS"),x)
+                add_answer(Question.objects.get(question_number=i+1, section_letter="D", school_level="MS"),x)
         if (i>=10):
             add_question(msSectionDQuestions[i], i+1, "D", "MS")
             for x in sectionCAnswers:
-                add_answer(Question.objects.get(question_number=i+1, section="D", school_level="MS"), x)
+                add_answer(Question.objects.get(question_number=i+1, section_letter="D", school_level="MS"), x)
 
     organizeSection(esSectionDQuestion, "D", "ES", sectionCandDElementaryAnswers)
 
@@ -170,18 +178,21 @@ def add_answer(question, choices):
     return c
 
 def add_question(q, q_num, sect, level):
-    q = Question.objects.get_or_create(question = q,question_number= q_num, section=sect, school_level = level)
+    q = Question.objects.get_or_create(question = q,question_number= q_num,
+                                       section=Botvin_Section.objects.get_queryset().
+                                       filter(section_letter = sect).filter(school_level=level)[0],
+                                       school_level = level, section_letter = sect)
     return q
 
 def organizeSection(questionSet, lifeskillsSection, schoolLevel, answerSet):
     for i in range(0, len(questionSet)):
         add_question(questionSet[i], i+1, lifeskillsSection, schoolLevel)
         for x in answerSet:
-            add_answer(Question.objects.get(question_number = i+1, section=lifeskillsSection, school_level=schoolLevel), x)
+            add_answer(Question.objects.get(question_number = i+1, section_letter=lifeskillsSection, school_level=schoolLevel), x)
     return
 
 if __name__ == '__main__':
     print "Inscribing questions into database..."
     os.environ.setdefault('DJANGO_SETTINGS_MODULE',"sunstreet.settings")
-    from botvin_lifeskills.models import Question, Answer#, SectionA, SectionB, SectionC, SectionD
+    from botvin_lifeskills.models import Question, Answer, Botvin_Section
     populate()

@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^demographics/', include('demographics.urls')),
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-	url(r'^lifeskills/', include('lifeskills.urls', namespace="lifeskills")),    
+	url(r'^lifeskills/', include('lifeskills.urls', namespace="lifeskills")),
+    url(r'^botvin/', include('botvin_lifeskills.urls', namespace="botvin_lifeskills")),
 
 )
