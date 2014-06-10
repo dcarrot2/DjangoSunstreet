@@ -11,9 +11,11 @@
 		<script>
             function changeQuestionNumber(number){
                 var choice = "choice";
+                console.log(number)
                 number+=1;
                 choice.concat(number);
-
+                console.log(number)
+                console.log(choice)
                 return choice;
             }
 		</script>
@@ -32,7 +34,7 @@
 		{% for question in questions %}
             <p>{{question}}</p>
 		    {% for choice in question.answer_set.all %}
-			    <input type="radio" name=changeQuestionNumber({forloop.counter}) id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+			    <input type="radio" name={{question.question_number}} id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
 			    <label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
 		    {% endfor %}
         {% endfor %}
