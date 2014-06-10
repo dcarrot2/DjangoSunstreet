@@ -23,6 +23,16 @@ def botvinSection(request, section, school_level):
     context["questions"] = questions
     context["section"] = section
     context["school_level"] = school_level
+<<<<<<< HEAD
+    print "Context: ", context
+    return render(request, "botvin/displayquestions.html", context)
+
+def botvinSectionVote(request, section, school_level):
+    print "LOL"
+    questions = []
+    for question in Question.objects.get_queryset().filter(section_letter=section).filter(school_level=school_level):
+        questions.append(question)
+=======
 
     print "printing the context", context
     return render(request, "botvin/displayquestions.html", context)
@@ -36,6 +46,7 @@ def botvinSectionVote(request):#, section, school_level):
     print request
     questions = get_list_or_404(Question, section_letter = request.POST['section'], school_level = request.POST['school_level'])
     # print questions[0].answer_set.all()
+>>>>>>> d9237dc370778e2180e069617ee1db62bd31887c
     try:
         responses = []
         for i in range(0,len(questions)):
@@ -51,6 +62,13 @@ def botvinSectionVote(request):#, section, school_level):
 
     return HttpResponseRedirect(reverse('lifeskills:response'))
 
+<<<<<<< HEAD
+=======
 def results(request):
     print "123456"
     return HttpResponse("Hello World")
+
+
+
+
+>>>>>>> d9237dc370778e2180e069617ee1db62bd31887c

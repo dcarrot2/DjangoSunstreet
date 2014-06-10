@@ -7,24 +7,33 @@
 		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			320px)" href="/static/lifeskills/smalldevice.css" />
 		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			480px)" href="/static/lifeskills/smalldevice.css" />
 		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			1024px)" href="/static/lifeskills/smalldevice.css" />
+<<<<<<< HEAD
 
+=======
+>>>>>>> d9237dc370778e2180e069617ee1db62bd31887c
 	</head>
 	<body class = "body">
 		<header class = "mainHead">
-			<h1> Botvin Lifeskills section {{section}}</h1>
+			<h1> Botvin Lifeskills Section {{section}}</h1>
 		</header>
 
 		{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 	   	<form action="{% url 'botvin_lifeskills:botvinSectionVote'  %}" method="post">
 
+            <input type="hidden" value="{{school_level}}" name="school_level">
+            <input type="hidden" value="{{section}}" name="section">
 		{% csrf_token %}
 
 		{% for question in questions %}
-            <p>{{question}}</p>
+            <p>{{question.question_number}}. {{question}}</p>
 		    {% for choice in question.answer_set.all %}
+<<<<<<< HEAD
 			    <input type="radio" name={{question.question_number}} id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
 
+=======
+			    <input type="radio" name=choice{{question.question_number}} id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+>>>>>>> d9237dc370778e2180e069617ee1db62bd31887c
 			    <label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
 		    {% endfor %}
         {% endfor %}
