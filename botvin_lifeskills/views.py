@@ -29,27 +29,31 @@ def botvinSection(request, section, school_level):
 
 def botvinSectionVote(request):#, section, school_level):
     questions = []
-    print "123456789"
-    print "request.post['1']", request.POST['1']
-    print "\n\n"
-    print Answer.objects.get(pk=1), "\n\n"
+    # print "123456789"
+    # print "request.post['1']", request.POST['1']
+    # print "\n\n"
+    # print "Should be the answer object: ", Answer.objects.get(pk=1).votes, "\n\n"
+
     print request
     questions = get_list_or_404(Question, section_letter = request.POST['section'], school_level = request.POST['school_level'])
     # print questions[0].answer_set.all()
     try:
+        print "1"
         responses = []
+        print "2"
         for i in range(0,len(questions)):
-            print(Answer.objects.get(pk=request.POST['choice']))
-            responses.append(Answer.objects.get(pk = request.POST['choice'+str(i+1)]))
-        for i in range(0, len(responses)):
-            print "Response " + str(i+1)+":" + responses[i]
+            print i
+            print(Answer.objects.get(pk=request.POST["choice"+str(i+1)]))
+            responses.append(Answer.objects.get(pk = request.POST["choice"+str(i+1)]))
+        print responses
     except (KeyError, Question.DoesNotExist):
         print("Check your code")
 
         return render(request, 'botvin/displayquestions.html', {
 		'error_message': "You forgot to select one or more choices."})
 
-    return HttpResponseRedirect(reverse('lifeskills:response'))
+
+    return HttpResponseRedirect('botvin_lifeskills:botvinSection', args=['/botvin/section/',"B", "HS"])
 
 def results(request):
     print "123456"
