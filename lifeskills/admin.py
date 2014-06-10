@@ -4,7 +4,7 @@ from lifeskills.models import PreTestQuestion, PreTestAnswer, PreTestUser, PostT
 
 
 class LifeSkillsPreAdmin(admin.ModelAdmin):
-    list_display = ['pretestuser_num', 'first_question','second_question']
+    list_display = ['id', 'first_question','second_question']
 
 class PreTestQuestionAdmin(admin.ModelAdmin):
     list_display = ['question_number', 'question']

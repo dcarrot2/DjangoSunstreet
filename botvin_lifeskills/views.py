@@ -22,6 +22,7 @@ def botvinSection(request, section, school_level):
     context["school_level"] = school_level
     print context
     return render(request, "botvin/displayquestions.html", context)
+
 def botvinSectionVote(request, section, school_level):
     questions = []
     for question in Question.objects.get_queryset().filter(seciton_letter=section).filter(school_level=school_level):
