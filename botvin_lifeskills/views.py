@@ -34,7 +34,7 @@ def botvinSectionVote(request):#, section, school_level):
     # print "\n\n"
     # print "Should be the answer object: ", Answer.objects.get(pk=1).votes, "\n\n"
 
-    print request
+    # print request
     questions = get_list_or_404(Question, section_letter = request.POST['section'], school_level = request.POST['school_level'])
     # print questions[0].answer_set.all()
     try:
@@ -51,9 +51,11 @@ def botvinSectionVote(request):#, section, school_level):
 
         return render(request, 'botvin/displayquestions.html', {
 		'error_message': "You forgot to select one or more choices."})
+    print "Printing the path for the URL"
+    print "url path", reverse(botvinSection)
 
 
-    return HttpResponseRedirect('botvin_lifeskills:botvinSection', args=['/botvin/section/',"B", "HS"])
+    return HttpResponseRedirect()#'botvin_lifeskills:botvinSection', args=['/botvin/section/',"B", "HS"])
 
 def results(request):
     print "123456"
