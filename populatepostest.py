@@ -54,8 +54,9 @@ def populate():
 		add_answer(questionobjectlist[7], postanswerlist[p])
 	
 	#print answers to screen
-	for a in PostTestAnswer.objects.all():
-		print str(a)
+	for q in PostTestQuestion.objects.all():
+                for a in PostTestAnswer.objects.filter(question=q):
+                        print "{0} - {1}".format(str(q), str(a))
 	
 	#function that creates instance of PreTestQuestion
 def add_question(question, question_number,textfield):

@@ -53,6 +53,7 @@ def pretestvote(request):
                 choiceFirst.save()
                 choiceSecond.save()
                 numOfPreUser += 1
+                print "Number of pre user: ", numOfPreUser
 
                 return HttpResponseRedirect(reverse('lifeskills:response'))
 
@@ -74,9 +75,7 @@ def posttest(request):
 
 
 def posttestvote(request):
-
         global numOfPostUser
-
 	userCount = 1
 	#get all question objects
 	first = get_object_or_404(PostTestQuestion, question_number=1)
@@ -91,7 +90,6 @@ def posttestvote(request):
 	try:
 		firstTextResponse = request.POST['textarea1']
 		secondTextResponse = request.POST['textarea2']
-
 		
 		choiceFirst = PostTestAnswer.objects.get_or_create(question=first, choices=firstTextResponse, votes=0)[0]
                 choiceSecond = PostTestAnswer.objects.get_or_create(question=second, choices=secondTextResponse, votes=0)[0]
@@ -102,8 +100,6 @@ def posttestvote(request):
 		choiceSeventh = seventh.posttestanswer_set.get(pk=request.POST['choice7'])
 		choiceEighth = eighth.posttestanswer_set.get(pk=request.POST['choice8'])	
 		
-
-
 		print "First choice: ", choiceFirst
 		print "Second choice: ", choiceSecond
 		print "Third choice: ", choiceThird
@@ -122,19 +118,17 @@ def posttestvote(request):
 		"fourth_question": fourth, "fifth_question": fifth, "sixth_question": sixth,
 		"seventh_question": seventh, "eighth_question": eighth
 		})
-
+	
 	else:
-
 		newUser = PostTestUser(posttestuser_num=numOfPostUser, question_one=choiceFirst,
-								question_two=choiceSecond,question_three=choiceThird,
-                                question_four=choiceFourth, question_five=choiceFifth,
-                                question_six=choiceSixth, question_seven=choiceSeventh,
-                                question_eight=choiceEighth)
+                                      question_two=choiceSecond,question_three=choiceThird,
+                                      question_four=choiceFourth, question_five=choiceFifth,
+                                      question_six=choiceSixth, question_seven=choiceSeventh,
+                                      question_eight=choiceEighth)
 
                 print "First text: ", firstTextResponse
 
 		print "pass"
-
 
 		choiceThird.votes += 1
 		choiceFourth.votes += 1
@@ -142,7 +136,7 @@ def posttestvote(request):
 		choiceSixth.votes += 1
 		choiceSeventh.votes += 1
 		choiceEighth.votes += 1
-
+		
                 newUser.save()
                 choiceThird.save()
                 choiceFourth.save()
@@ -158,3 +152,5 @@ def posttestvote(request):
 def response(request):
 
 	return render(request, 'lifeskills/response.html')
+
+	
