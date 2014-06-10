@@ -39,8 +39,7 @@ def botvinSectionVote(request, section, school_level):
         return render(request, 'botvin/displayquestions.html', {
 		'error_message': "You forgot to select one or more choices."})
 
-
-
+    return HttpResponseRedirect(reverse('lifeskills:response'))
 
 
 

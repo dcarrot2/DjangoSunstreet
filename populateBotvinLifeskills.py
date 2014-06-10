@@ -124,19 +124,19 @@ def populate():
                 add_answer(Question.objects.get(question_number = 5), x)
         if(i == 5):
             add_question(sectionAQuestions[i], i+1, "A", "HS")
-            for x in sectionAQuestion5Answers:
+            for x in sectionAQuestion6Answers:
                 add_answer(Question.objects.get(question_number = 6), x)
         if(i == 6):
             add_question(sectionAQuestions[i], i+1, "A", "HS")
-            for x in sectionAQuestion6Answers:
+            for x in sectionAQuestion7Answers:
                 add_answer(Question.objects.get(question_number = 7), x)
         if(i == 7):
             add_question(sectionAQuestions[i], i+1, "A", "HS")
-            for x in sectionAQuestion7Answers:
+            for x in sectionAQuestion8Answers:
                 add_answer(Question.objects.get(question_number = 8), x)
         if(i == 8):
             add_question(sectionAQuestions[i], i+1, "A", "HS")
-            for x in sectionAQuestion8Answers:
+            for x in sectionAQuestion9Answers:
                 add_answer(Question.objects.get(question_number = 9), x)
 
     organizeSection(hsSectionBQuestions, "B", "HS", sectionBAnswers)
