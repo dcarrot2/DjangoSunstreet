@@ -16,7 +16,7 @@
 
 		{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-	   	<form action="{% url 'botvin_lifeskills:botvinSectionVote' section school_level %}" method="post">
+	   	<form action="{% url 'botvin_lifeskills:botvinSectionVote'  %}" method="post">
 
 		{% csrf_token %}
 

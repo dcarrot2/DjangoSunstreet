@@ -20,12 +20,13 @@ def botvinSection(request, section, school_level):
     context["questions"] = questions
     context["section"] = section
     context["school_level"] = school_level
-    print context
+    print "Context: ", context
     return render(request, "botvin/displayquestions.html", context)
 
 def botvinSectionVote(request, section, school_level):
+    print "LOL"
     questions = []
-    for question in Question.objects.get_queryset().filter(seciton_letter=section).filter(school_level=school_level):
+    for question in Question.objects.get_queryset().filter(section_letter=section).filter(school_level=school_level):
         questions.append(question)
     try:
         responses = []
@@ -40,6 +41,4 @@ def botvinSectionVote(request, section, school_level):
 		'error_message': "You forgot to select one or more choices."})
 
     return HttpResponseRedirect(reverse('lifeskills:response'))
-
-
 

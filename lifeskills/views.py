@@ -18,6 +18,8 @@ def pretest(request):
         context = {"first_question": first_question,
                    "second_question": second_question}
 
+        print "Context: ", context
+
         return render(request, "lifeskills/prequestions.html", context)
 
 def pretestvote(request):
