@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.shortcuts import get_object_or_404, get_list_or_404
 from botvin_lifeskills.models import Question, Answer, Botvin_Section, User
 from django.http import HttpResponseRedirect, HttpResponse
@@ -23,37 +23,52 @@ def botvinSection(request, section, school_level):
     context["questions"] = questions
     context["section"] = section
     context["school_level"] = school_level
+<<<<<<< HEAD
+    print "Context: ", context
+    return render(request, "botvin/displayquestions.html", context)
+
+def botvinSectionVote(request, section, school_level):
+    print "LOL"
+    questions = []
+    for question in Question.objects.get_queryset().filter(section_letter=section).filter(school_level=school_level):
+        questions.append(question)
+=======
 
     print "printing the context", context
     return render(request, "botvin/displayquestions.html", context)
 
 def botvinSectionVote(request):#, section, school_level):
     questions = []
-    # print "123456789"
-    # print "request.post['1']", request.POST['1']
-    # print "\n\n"
-    # print "Should be the answer object: ", Answer.objects.get(pk=1).votes, "\n\n"
-
-    # print request
+    print "123456789"
+    print "request.post['1']", request.POST['1']
+    print "\n\n"
+    print Answer.objects.get(pk=1), "\n\n"
+    print request
     questions = get_list_or_404(Question, section_letter = request.POST['section'], school_level = request.POST['school_level'])
     # print questions[0].answer_set.all()
+>>>>>>> d9237dc370778e2180e069617ee1db62bd31887c
     try:
-        print "1"
         responses = []
-        print "2"
         for i in range(0,len(questions)):
-            print i
-            print(Answer.objects.get(pk=request.POST["choice"+str(i+1)]))
-            responses.append(Answer.objects.get(pk = request.POST["choice"+str(i+1)]))
-        print responses
+            print(Answer.objects.get(pk=request.POST['choice']))
+            responses.append(Answer.objects.get(pk = request.POST['choice'+str(i+1)]))
+        for i in range(0, len(responses)):
+            print "Response " + str(i+1)+":" + responses[i]
     except (KeyError, Question.DoesNotExist):
         print("Check your code")
 
         return render(request, 'botvin/displayquestions.html', {
 		'error_message': "You forgot to select one or more choices."})
-    return redirect('/botvin/section/B/HS')
 
+    return HttpResponseRedirect(reverse('lifeskills:response'))
 
+<<<<<<< HEAD
+=======
 def results(request):
     print "123456"
     return HttpResponse("Hello World")
+
+
+
+
+>>>>>>> d9237dc370778e2180e069617ee1db62bd31887c

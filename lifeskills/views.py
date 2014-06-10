@@ -18,11 +18,13 @@ def pretest(request):
         context = {"first_question": first_question,
                    "second_question": second_question}
 
+        print "Context: ", context
+
         return render(request, "lifeskills/prequestions.html", context)
 
 def pretestvote(request):
         global numOfPreUser
-        userCount = 1
+        
 
         first = get_object_or_404(PreTestQuestion, question_number=1)
         second = get_object_or_404(PreTestQuestion, question_number=2)

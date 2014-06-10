@@ -30,10 +30,11 @@
 		{% endfor %}
 
 		<p>{{second_question}}</p>
-		
+
 		{% for choice in second_question.pretestanswer_set.all %}
 			<input type="radio" name="choice2" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-			<label for="choice{{ forloop.counter + 4 }}">{{ choice.choices }}</label><br />
+
+			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
 		{% endfor %}
 
 		<div class="buttonHolder">
