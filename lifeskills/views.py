@@ -22,7 +22,7 @@ def pretest(request):
 
 def pretestvote(request):
         global numOfPreUser
-        userCount = 1
+        
 
         first = get_object_or_404(PreTestQuestion, question_number=1)
         second = get_object_or_404(PreTestQuestion, question_number=2)
@@ -55,7 +55,7 @@ def pretestvote(request):
                 numOfPreUser += 1
                 print "Number of pre user: ", numOfPreUser
 
-                return HttpResponseRedirect(reverse('lifeskills:response'))
+                return HttpResponseRedirect(reverse('lifeskills:response', args=[newUser.id]))
 
 def posttest(request):
         

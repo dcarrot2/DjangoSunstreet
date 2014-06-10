@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Life Skills Survey</title>
+		<title>Life Skills Post Survey</title>
 		<meta charset = "utf-8" />
 		<link rel="stylesheet" type="text/css"href="/static/lifeskills/smalldevice.css" />
 		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			320px)" href="/static/lifeskills/smalldevice.css" />
@@ -12,7 +12,7 @@
 	</head>
 	<body class = "body">
 		<header class = "mainHead">
-			<h1> Life Skills Trainings PostSurvey </h1>
+			<h1> Life Skills Trainings Post Survey </h1>
 		</header>
 
 		{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
@@ -62,8 +62,9 @@
 			<label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
 		{% endfor %}
 		
-		<input type="submit" value="Submit" />
-			
+		<div class="buttonHolder">
+			<input type="submit" value="Submit" />
+		</div>
 		</form>
 	
 	</body>
