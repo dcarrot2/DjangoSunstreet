@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, get_list_or_404
 from botvin_lifeskills.models import Question, Answer, Botvin_Section, User
 from django.http import HttpResponseRedirect, HttpResponse
@@ -53,7 +53,7 @@ def botvinSectionVote(request):#, section, school_level):
 		'error_message': "You forgot to select one or more choices."})
 
 
-    return HttpResponseRedirect('botvin_lifeskills:botvinSection', args=['/botvin/section/',"B", "HS"])
+    return redirect('/botvin/section/B/HS')
 
 def results(request):
     print "123456"

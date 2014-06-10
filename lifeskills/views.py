@@ -57,7 +57,7 @@ def pretestvote(request):
                 numOfPreUser += 1
                 print "Number of pre user: ", numOfPreUser
 
-                return HttpResponseRedirect(reverse('lifeskills:response', args=[newUser.id]))
+                return HttpResponseRedirect(reverse('lifeskills:response'))
 
 def posttest(request):
         
