@@ -1,5 +1,5 @@
 from django.contrib import admin
-from botvin_lifeskills.models import Answer, Question, User, Botvin_Section
+from botvin_lifeskills.models import Answer, Question, User, Botvin_Section, Choice
 
 class UserAdmin(admin.ModelAdmin):
 
@@ -11,3 +11,4 @@ class QuestionAdmin(admin.ModelAdmin):
     list_display = ['question_number', 'question', 'section', 'school_level']
 
 admin.site.register(User, UserAdmin)
+admin.site.register(Choice)
