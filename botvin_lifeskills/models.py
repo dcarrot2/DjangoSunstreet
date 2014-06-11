@@ -16,10 +16,13 @@ class User(models.Model):
         student_code = models.IntegerField()
         school_code = models.IntegerField()
         date_survey_taken = models.DateTimeField('date published')
+        myList = models.TextField(null = True)
+
         # section_a_questions = models.ForeignKey(Botvin_Section, related_name = "sectionaquestions")
         # section_b_questions = models.ForeignKey(Botvin_Section, related_name = "sectionbquestions")
         # section_c_questions = models.ForeignKey(Botvin_Section, related_name = "sectioncquestions")
         # section_d_questions = models.ForeignKey(Botvin_Section, related_name = "sectiondquestions")
+
         
         #list that will eventually hold Botvin Answer type objects made by the user.
        
@@ -46,7 +49,9 @@ class Answer(models.Model):
     def __unicode__(self):
         return self.choices
     
-class Choice(models.Model):
-    user = models.ForeignKey(User)
-    selection = models.ForeignKey(Answer)
+#===============================================================================
+# class Choice(models.Model):
+#     user = models.ForeignKey(User)
+#     selection = models.ForeignKey(Answer)
+#===============================================================================
     

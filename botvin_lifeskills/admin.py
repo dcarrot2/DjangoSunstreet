@@ -1,6 +1,5 @@
 from django.contrib import admin
 from botvin_lifeskills.models import Answer, Question, User, Botvin_Section
-
 class UserAdmin(admin.ModelAdmin):
 
     list_display = ['student_code', 'school_code', 'date_survey_taken', 'section_a_questions', "section_b_questions",
