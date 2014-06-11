@@ -27,27 +27,51 @@ def excel(request):
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet("MyModel")
     
+    
     row_num = 0
     
+    numUsers = len(User.objects.get_queryset().filter(school_level="HS"))
+    jsonDec = json.decoder.JSONDecoder()
+    
     columns = [
-            (u"ID", 2000),
-            (u"Title", 6000),
-            (u"Description", 8000),   
+            (u"Student ID", 2000),
+            (u"School ID", 6000),
+            (u"School Level", 8000),   
                
                ]
+    
+    for question in range(3,54):
+        print "L"
+        columns.append(("Q"+str(question-2), 8000))
+        
+    print "Col: ", columns
+    
+    for user in User.objects.get_queryset().filter(school_level = "HS"):
+        userList = jsonDec.decode(user.myList)
+    
+    
+   
+    
+    #for question in xrange(len(columns)):
+        
     
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
     
+    #For styling columns
     for col_num in xrange(len(columns)):
         ws.write(row_num, col_num, columns[col_num][0], font_style)
+        # set column widthws.write(row_num, col_num, columns[col_num][0], font_style)
         # set column width
         ws.col(col_num).width = columns[col_num][1]
+        ws.col(col_num).width = columns[col_num][1]
+        
         
     font_style = xlwt.XFStyle()
     font_style.alignment.wrap = 1
     
-    for obj in Users:
+    for obj in User.objects.get_queryset().filter(school_level="HS"):
+        
         row_num += 1
         
         row = [
@@ -150,7 +174,7 @@ def botvinSectionVote(request):#, section, school_level):
         
         print "Length of responses: ", len(responses)
         print responses
-        r = User(student_code=1, school_code=2, date_survey_taken=timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone()), myList = json.dumps(responses))
+        r = User(student_code=1, school_code=2, myList = json.dumps(responses), num_questions_answered = len(responses), school_level=school_level)
         r.save()
         User.objects.all()
         

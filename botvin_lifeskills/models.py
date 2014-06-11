@@ -18,6 +18,8 @@ class User(models.Model):
         #date_survey_taken = models.DateTimeField('date published')
         myList = models.TextField(null = True)
         num_questions_answered = models.IntegerField()
+        
+        school_level = models.CharField(max_length=3)
 
         # section_a_questions = models.ForeignKey(Botvin_Section, related_name = "sectionaquestions")
         # section_b_questions = models.ForeignKey(Botvin_Section, related_name = "sectionbquestions")
