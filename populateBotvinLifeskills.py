@@ -104,40 +104,72 @@ def populate():
 
         if (i == 0):
             add_question(sectionAQuestions[i], i+1, "A", "HS")
+            add_question(sectionAQuestions[i], i+1, "A", "MS")
+            add_question(sectionAQuestions[i], i+1, "A", "ES")
             for x in sectionAQuestion1Answers:
-                add_answer(Question.objects.get(question_number = 1), x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "HS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "MS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "ES").filter(section_letter = "A").filter(question_number = i+1)[0], x)
         if(i == 1):
             add_question(sectionAQuestions[i], i+1, "A","HS")
+            add_question(sectionAQuestions[i], i+1, "A", "MS")
+            add_question(sectionAQuestions[i], i+1, "A", "ES")
             for x in sectionAQuestion2Answers:
-                add_answer(Question.objects.get(question_number = 2), x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "HS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "MS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "ES").filter(section_letter = "A").filter(question_number = i+1)[0], x)
         if(i == 2):
             add_question(sectionAQuestions[i], i+1, "A", "HS")
+            add_question(sectionAQuestions[i], i+1, "A", "MS")
+            add_question(sectionAQuestions[i], i+1, "A", "ES")
             for x in sectionAQuestion3Answers:
-                add_answer(Question.objects.get(question_number = 3), x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "HS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "MS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "ES").filter(section_letter = "A").filter(question_number = i+1)[0], x)
         if(i==3):
             add_question(sectionAQuestions[i], i+1, "A", "HS")
+            add_question(sectionAQuestions[i], i+1, "A", "MS")
+            add_question(sectionAQuestions[i], i+1, "A", "ES")
             for x in sectionAQuestion4Answers:
-                add_answer(Question.objects.get(question_number = 4), x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "HS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "MS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "ES").filter(section_letter = "A").filter(question_number = i+1)[0], x)
         if(i == 4):
             add_question(sectionAQuestions[i], i+1, "A", "HS")
+            add_question(sectionAQuestions[i], i+1, "A", "MS")
+            add_question(sectionAQuestions[i], i+1, "A", "ES")
             for x in sectionAQuestion5Answers:
-                add_answer(Question.objects.get(question_number = 5), x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "HS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "MS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "ES").filter(section_letter = "A").filter(question_number = i+1)[0], x)
         if(i == 5):
             add_question(sectionAQuestions[i], i+1, "A", "HS")
+            add_question(sectionAQuestions[i], i+1, "A", "MS")
+            add_question(sectionAQuestions[i], i+1, "A", "ES")
             for x in sectionAQuestion6Answers:
-                add_answer(Question.objects.get(question_number = 6), x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "HS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "MS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "ES").filter(section_letter = "A").filter(question_number = i+1)[0], x)
         if(i == 6):
             add_question(sectionAQuestions[i], i+1, "A", "HS")
+            add_question(sectionAQuestions[i], i+1, "A", "MS")
+            add_question(sectionAQuestions[i], i+1, "A", "ES")
             for x in sectionAQuestion7Answers:
-                add_answer(Question.objects.get(question_number = 7), x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "HS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "MS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "ES").filter(section_letter = "A").filter(question_number = i+1)[0], x)
         if(i == 7):
             add_question(sectionAQuestions[i], i+1, "A", "HS")
+            add_question(sectionAQuestions[i], i+1, "A", "MS")
+            add_question(sectionAQuestions[i], i+1, "A", "ES")
             for x in sectionAQuestion8Answers:
-                add_answer(Question.objects.get(question_number = 8), x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "HS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "MS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "ES").filter(section_letter = "A").filter(question_number = i+1)[0], x)
         if(i == 8):
             add_question(sectionAQuestions[i], i+1, "A", "HS")
             for x in sectionAQuestion9Answers:
-                add_answer(Question.objects.get(question_number = 9), x)
+                add_answer(Question.objects.get_queryset().filter(school_level = "HS").filter(section_letter = "A").filter(question_number = i+1)[0], x)
 
     organizeSection(hsSectionBQuestions, "B", "HS", sectionBAnswers)
     organizeSection(msSectionBQuestions, "B", "MS", sectionBAnswers)
