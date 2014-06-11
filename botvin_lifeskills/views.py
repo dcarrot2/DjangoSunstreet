@@ -55,6 +55,8 @@ def botvinSectionVote(request):#, section, school_level):
 
         return render(request, 'botvin/displayquestions.html', {
 		'error_message': "You forgot to select one or more choices."})
+    
+    #We render surveys depending on the section
     if (current_section == "A"):
         following_section = "B"
     elif(current_section == "B"):

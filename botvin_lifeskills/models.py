@@ -20,6 +20,9 @@ class User(models.Model):
         section_b_questions = models.ForeignKey(Botvin_Section, related_name = "sectionbquestions")
         section_c_questions = models.ForeignKey(Botvin_Section, related_name = "sectioncquestions")
         section_d_questions = models.ForeignKey(Botvin_Section, related_name = "sectiondquestions")
+        
+        #list that will eventually hold Botvin Answer type objects made by the user.
+       
 
         def __unicode__(self):
             return "Student: " + str(self.student_code) + " School:" + str(self.school_code)
@@ -42,3 +45,8 @@ class Answer(models.Model):
     votes = models.IntegerField(default=0)
     def __unicode__(self):
         return self.choices
+    
+class Choice(models.Model):
+    user = models.ForeignKey(User)
+    selection = models.ForeignKey(Answer)
+    
