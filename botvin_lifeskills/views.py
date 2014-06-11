@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 # Create your views here.
 
+responses = []
+
 def botvinSection(request, section, school_level):
             #We get the first two questions individually given
         #that they require a text field for response
@@ -33,13 +35,15 @@ def botvinSectionVote(request):#, section, school_level):
     # print "request.post['1']", request.POST['1']
     # print "\n\n"
     # print "Should be the answer object: ", Answer.objects.get(pk=1).votes, "\n\n"
-
+    current_section = request.POST["section"]
+    following_section = ""
+    school_level = request.POST['school_level']
     # print request
-    questions = get_list_or_404(Question, section_letter = request.POST['section'], school_level = request.POST['school_level'])
+    questions = get_list_or_404(Question, section_letter = current_section, school_level = school_level)
     # print questions[0].answer_set.all()
     try:
         print "1"
-        responses = []
+        global responses
         print "2"
         for i in range(0,len(questions)):
             print i
@@ -51,7 +55,17 @@ def botvinSectionVote(request):#, section, school_level):
 
         return render(request, 'botvin/displayquestions.html', {
 		'error_message': "You forgot to select one or more choices."})
-    return redirect('/botvin/section/B/HS')
+    if (current_section == "A"):
+        following_section = "B"
+    elif(current_section == "B"):
+        following_section = "C"
+    elif(current_section == "C"):
+        following_section = "D"
+
+    else:
+        print responses
+        responses = []
+    return redirect('/botvin/section/'+following_section+'/'+school_level)
 
 
 def results(request):
