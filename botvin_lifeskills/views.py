@@ -61,9 +61,9 @@ def botvinSectionVote(request):#, section, school_level):
         following_section = "C"
     elif(current_section == "C"):
         following_section = "D"
-
     else:
         print responses
+        User()
         responses = []
     return redirect('/botvin/section/'+following_section+'/'+school_level)
 
