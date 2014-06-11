@@ -37,9 +37,9 @@ def pretestvote(request):
             print 'Second choice: ', choiceSecond
 
     except (KeyError, PreTestQuestion.DoesNotExist):
-		print("Check your code")
-
-		return render(request, 'lifeskills/prequestions.html', {
+        print("Check your code")
+        
+        return render(request, 'lifeskills/prequestions.html', {
 		'error_message': "You forgot to select one or more choices.",
 		"first_question": first, "second_question": second})
 
@@ -72,8 +72,8 @@ def posttest(request):
 
         for i in range(len(questions)):
                 context["question_" + str(i+1)] = questions[i]
-
-	return render(request, "lifeskills/postquestions.html", context)
+        
+        return render(request, "lifeskills/postquestions.html", context)
 
 
 def posttestvote(request):
