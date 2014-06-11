@@ -4,10 +4,88 @@ from botvin_lifeskills.models import Question, Answer, Botvin_Section, User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django_excel_templates import *
+from django_excel_templates.color_converter import *
 import json
+import datetime
+import xlwt
 # Create your views here.
 
 responses = []
+
+def temp(request):
+    print datetime.datetime.now()
+    return render(request, "botvin/temp.html")
+
+
+def excel(request):
+   
+    Users = User.objects.all()
+    import xlwt
+    response = HttpResponse(mimetype='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=mymodel.xls'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet("MyModel")
+    
+    row_num = 0
+    
+    columns = [
+            (u"ID", 2000),
+            (u"Title", 6000),
+            (u"Description", 8000),   
+               
+               ]
+    
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+    
+    for col_num in xrange(len(columns)):
+        ws.write(row_num, col_num, columns[col_num][0], font_style)
+        # set column width
+        ws.col(col_num).width = columns[col_num][1]
+        
+    font_style = xlwt.XFStyle()
+    font_style.alignment.wrap = 1
+    
+    for obj in Users:
+        row_num += 1
+        
+        row = [
+               obj.student_code,
+               obj.school_code]
+        
+        for col_num in xrange(len(row)):
+            ws.write(row_num, col_num, columns[col_num][0], font_style)
+            # set column width
+    
+    wb.save(response)
+    return response
+        
+   
+    
+  #=============================================================================
+  #   formatter = ExcelFormatter()
+  #   simpleStyle = ExcelStyle(vert=2, wrap=1)
+  #   formatter.addBodyStyle(simpleStyle)
+  #   formatter.setWidth('name, category, publish_date,bought_on', 3000)
+  #   formatter.setWidth('price', 600)
+  #   formatter.setWidth('ebook', 1200)
+  #   formatter.setWidth('about', 20000)
+  #   
+  # 
+  #   
+  #   simple_report = ExcelReport()
+  #   simple_report.addSheet("TestSimple")
+  #   #filter = ExcelFilter(order='name, category, publish_date, about, bought_on, price, ebook')
+  #   simple_report.addQuerySet(Users, REPORT_HORZ, formatter)
+  #   
+  #   response = HttpResponse(simple_report.writeReport(), mimetype='application/ms-excel')
+  #   response['Content-Disposition'] = 'attachment; filename=simple_text.xls'
+  #   print 'LOL'
+  #   return response
+  #=============================================================================
+
+
 
 def botvinSection(request, section, school_level):
             #We get the first two questions individually given
@@ -66,13 +144,13 @@ def botvinSectionVote(request):#, section, school_level):
     elif(current_section == "C"):
         following_section = "D"
     else:
-        #typecast reponses from Answer to String objects before making json dump into User.myList textfield
+        #typecast reponses from Answer to String objects before making json dump into User.myList textfield    
         for x in range(len(responses)):
             responses[x] = str(responses[x])
         
         print "Length of responses: ", len(responses)
         print responses
-        r = User(student_code=1, school_code=2, date_survey_taken=timezone.now(), myList = json.dumps(responses))
+        r = User(student_code=1, school_code=2, date_survey_taken=timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone()), myList = json.dumps(responses))
         r.save()
         User.objects.all()
         

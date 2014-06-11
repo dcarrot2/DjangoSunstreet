@@ -9,6 +9,10 @@ urlpatterns = patterns('',
     url(r'^section/botvinVote/$', views.botvinSectionVote, name="botvinSectionVote"),
 
     url(r'^section/results/$', views.results, name="results"),
+    
+    url(r'^excel', views.temp, name="temp"),
+    
+    url(r'^download', views.excel, name="excel"),
 
 
 )

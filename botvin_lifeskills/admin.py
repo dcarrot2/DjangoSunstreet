@@ -4,7 +4,7 @@ class UserAdmin(admin.ModelAdmin):
 
     list_display = ['student_code', 'school_code', 'date_survey_taken', 'section_a_questions', "section_b_questions",
                     'section_c_questions', 'section_d_questions']
-    list_display = ['student_code', 'school_code', 'date_survey_taken']
+    list_display = ['student_code', 'school_code',]
 
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ['question_number', 'question', 'section', 'school_level']
