@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, get_list_or_404
-from botvin_lifeskills.models import Question, Answer, Botvin_Section, User
+from botvin_lifeskills.models import Question, Answer, Botvin_Section, User, Choice
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 # Create your views here.
 
 responses = []
@@ -65,8 +66,11 @@ def botvinSectionVote(request):#, section, school_level):
         following_section = "D"
     else:
         print responses
-        User()
+        r = User(student_code=1, school_code=2, date_survey_taken=timezone.now() )
+        r.save()
+        User.objects.all()
         responses = []
+
     return redirect('/botvin/section/'+following_section+'/'+school_level)
 
 
