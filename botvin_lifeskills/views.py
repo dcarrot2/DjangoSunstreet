@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, get_list_or_404
-from botvin_lifeskills.models import Question, Answer, Botvin_Section, User, Choice
+from botvin_lifeskills.models import Question, Answer, Botvin_Section, User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+import json
 # Create your views here.
 
 responses = []
@@ -65,10 +66,19 @@ def botvinSectionVote(request):#, section, school_level):
     elif(current_section == "C"):
         following_section = "D"
     else:
+        #typecast reponses from Answer to String objects before making json dump into User.myList textfield
+        for x in range(len(responses)):
+            responses[x] = str(responses[x])
+        
+        print "Length of responses: ", len(responses)
         print responses
-        r = User(student_code=1, school_code=2, date_survey_taken=timezone.now() )
+        r = User(student_code=1, school_code=2, date_survey_taken=timezone.now(), myList = json.dumps(responses))
         r.save()
         User.objects.all()
+        
+            
+        
+        
         responses = []
 
     return redirect('/botvin/section/'+following_section+'/'+school_level)
