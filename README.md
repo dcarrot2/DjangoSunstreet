@@ -1,4 +1,4 @@
 DjangoSunstreet
 ===============
 
-Repository for Sunstreet surveys-powered by Django
+Repository for Sunstreet surveys. Powered by Django.
