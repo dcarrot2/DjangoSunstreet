@@ -27,7 +27,7 @@ def excel(request):
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet("MyModel")
     
-    
+    userList = [[]]
     row_num = 0
     
     numUsers = len(User.objects.get_queryset().filter(school_level="HS"))
@@ -41,13 +41,12 @@ def excel(request):
                ]
     
     for question in range(3,54):
-        print "L"
         columns.append(("Q"+str(question-2), 8000))
         
     print "Col: ", columns
     
     for user in User.objects.get_queryset().filter(school_level = "HS"):
-        userList = jsonDec.decode(user.myList)
+        userList.append(jsonDec.decode(user.myList))
     
     
    
@@ -78,8 +77,9 @@ def excel(request):
                obj.student_code,
                obj.school_code]
         
-        for col_num in xrange(len(row)):
-            ws.write(row_num, col_num, columns[col_num][0], font_style)
+        for col_num in xrange(len(userList)):
+            
+            ws.write(row_num, col_num+3, userList[row_num][col_num], font_style)
             # set column width
     
     wb.save(response)
