@@ -4,14 +4,12 @@ from botvin_lifeskills.models import Question, Answer, Botvin_Section, User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-from django_excel_templates import *
-from django_excel_templates.color_converter import *
 import json
 import datetime
 import xlwt
 # Create your views here.
 
-responses = []
+responses = {}
 
 def temp(request):
     print datetime.datetime.now()
@@ -77,9 +75,9 @@ def excel(request):
                obj.student_code,
                obj.school_code]
         
-        for col_num in xrange(len(userList)):
-            
-            ws.write(row_num, col_num+3, userList[row_num][col_num], font_style)
+        for col_num in xrange(len(row)):
+            ws.write(row_num, col_num, userList[col_num], font_style)
+
             # set column width
     
     wb.save(response)
@@ -114,6 +112,7 @@ def excel(request):
 def botvinSection(request, section, school_level):
             #We get the first two questions individually given
         #that they require a text field for response
+    print "\tSession ID",request.COOKIES['sessionid']
     print "section: ", section
     print "school level", school_level
     questions = []
@@ -139,6 +138,8 @@ def botvinSectionVote(request):#, section, school_level):
     # print "request.post['1']", request.POST['1']
     # print "\n\n"
     # print "Should be the answer object: ", Answer.objects.get(pk=1).votes, "\n\n"
+
+    sessionID = request.COOKIES['sessionid']
     current_section = request.POST["section"]
     following_section = ""
     school_level = request.POST['school_level']
@@ -149,10 +150,13 @@ def botvinSectionVote(request):#, section, school_level):
         print "1"
         global responses
         print "2"
+        if (sessionID not in responses.keys()):
+            print "creating a new key"
+            responses[sessionID] = []
         for i in range(0,len(questions)):
             print i
             print(Answer.objects.get(pk=request.POST["choice"+str(i+1)]))
-            responses.append(Answer.objects.get(pk = request.POST["choice"+str(i+1)]))
+            responses[sessionID].append(Answer.objects.get(pk = request.POST["choice"+str(i+1)]))
         print responses
     except (KeyError, Question.DoesNotExist):
         print("Check your code")
@@ -169,19 +173,20 @@ def botvinSectionVote(request):#, section, school_level):
         following_section = "D"
     else:
         #typecast reponses from Answer to String objects before making json dump into User.myList textfield    
-        for x in range(len(responses)):
-            responses[x] = str(responses[x])
-        
-        print "Length of responses: ", len(responses)
+        for x in range(len(responses[sessionID])):
+            responses[sessionID][x] = str(responses[sessionID][x])
+
+        print "Length of responses: ", len(responses[sessionID])
         print responses
-        r = User(student_code=1, school_code=2, myList = json.dumps(responses), num_questions_answered = len(responses), school_level=school_level)
+        r = User(student_code=1, school_code=2, myList = json.dumps(responses[sessionID]), num_questions_answered = len(responses[sessionID]), school_level=school_level)
         r.save()
+        del responses[sessionID]
         User.objects.all()
         
             
         
         
-        responses = []
+        # responses = []
 
     return redirect('/botvin/section/'+following_section+'/'+school_level)
 
