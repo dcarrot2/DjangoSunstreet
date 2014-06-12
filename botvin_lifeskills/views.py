@@ -17,22 +17,21 @@ def temp(request):
 
 
 def excel(request):
-   
-    Users = User.objects.all()
     import xlwt
+    Users = User.objects.all()
     response = HttpResponse(mimetype='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename=mymodel.xls'
+    response['Content-Disposition'] = 'attachment; filename=BotvinHighSchool.xls'
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet("MyModel")
+    ws = wb.add_sheet("BotvinHighSchool")
     
-    userList = [[]]
+    userList = []
     row_num = 0
     
     numUsers = len(User.objects.get_queryset().filter(school_level="HS"))
     jsonDec = json.decoder.JSONDecoder()
     
     columns = [
-            (u"Student ID", 2000),
+            (u"Student ID", 6000),
             (u"School ID", 6000),
             (u"School Level", 8000),   
                
@@ -46,11 +45,8 @@ def excel(request):
     for user in User.objects.get_queryset().filter(school_level = "HS"):
         userList.append(jsonDec.decode(user.myList))
     
-    
-   
-    
-    #for question in xrange(len(columns)):
-        
+    print "\n\nMy User List: ", userList
+       
     
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
@@ -67,45 +63,29 @@ def excel(request):
     font_style = xlwt.XFStyle()
     font_style.alignment.wrap = 1
     
+    userList_row = 0
+    
     for obj in User.objects.get_queryset().filter(school_level="HS"):
         
         row_num += 1
         
-        row = [
-               obj.student_code,
-               obj.school_code]
+        #Write the student's student code, school code and school level into the spreadsheet
+        ws.write(row_num, 0, obj.student_code)
+        ws.write(row_num,1,obj.school_code)
+        ws.write(row_num,2,obj.school_level)
         
-        for col_num in xrange(len(row)):
-            ws.write(row_num, col_num, userList[col_num], font_style)
+        #We cycle through each column starting at the third column and we fill them with the responses of the student
+        for col_num in xrange(51):
+            #ws.write(row_num, col_num, userList[col_num], font_style)
+            ws.write(row_num, col_num + 3, userList[userList_row][col_num])
+        
+        #Increment the index to move to next student's list  
+        userList_row += 1
 
             # set column width
     
     wb.save(response)
     return response
-        
-   
-    
-  #=============================================================================
-  #   formatter = ExcelFormatter()
-  #   simpleStyle = ExcelStyle(vert=2, wrap=1)
-  #   formatter.addBodyStyle(simpleStyle)
-  #   formatter.setWidth('name, category, publish_date,bought_on', 3000)
-  #   formatter.setWidth('price', 600)
-  #   formatter.setWidth('ebook', 1200)
-  #   formatter.setWidth('about', 20000)
-  #   
-  # 
-  #   
-  #   simple_report = ExcelReport()
-  #   simple_report.addSheet("TestSimple")
-  #   #filter = ExcelFilter(order='name, category, publish_date, about, bought_on, price, ebook')
-  #   simple_report.addQuerySet(Users, REPORT_HORZ, formatter)
-  #   
-  #   response = HttpResponse(simple_report.writeReport(), mimetype='application/ms-excel')
-  #   response['Content-Disposition'] = 'attachment; filename=simple_text.xls'
-  #   print 'LOL'
-  #   return response
-  #=============================================================================
 
 
 
@@ -172,7 +152,7 @@ def botvinSectionVote(request):#, section, school_level):
     elif(current_section == "C"):
         following_section = "D"
     else:
-        #typecast reponses from Answer to String objects before making json dump into User.myList textfield    
+        #typecast responses from Answer to String objects before making json dump into User.myList textfield    
         for x in range(len(responses[sessionID])):
             responses[sessionID][x] = str(responses[sessionID][x])
 
