@@ -51,7 +51,14 @@ class Answer(models.Model):
     votes = models.IntegerField(default=0)
     def __unicode__(self):
         return self.choices
-    
+
+class Botvin_User_Section(models.Model):
+    section_letter = models.CharField(max_length = 3)
+    school_level = models.CharField(max_length = 3)
+    student_code = models.IntegerField()
+    answer_list = models.TextField(null=True)
+
+
 #===============================================================================
 # class Choice(models.Model):
 #     user = models.ForeignKey(User)
