@@ -92,6 +92,7 @@ def excel(request):
 def botvinSection(request, section, school_level):
             #We get the first two questions individually given
         #that they require a text field for response
+    print request
     print "\tSession ID",request.COOKIES['sessionid']
     print "section: ", section
     print "school level", school_level
