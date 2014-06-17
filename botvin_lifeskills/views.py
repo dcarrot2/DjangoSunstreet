@@ -92,8 +92,10 @@ def excel(request):
 def botvinSection(request, section, school_level):
             #We get the first two questions individually given
         #that they require a text field for response
-    print request
-    print "\tSession ID",request.COOKIES['sessionid']
+
+    # print "\tSession ID",request.COOKIES['sessionid']
+    #print request
+
     print "section: ", section
     print "school level", school_level
     questions = []
@@ -120,7 +122,8 @@ def botvinSectionVote(request):#, section, school_level):
     # print "\n\n"
     # print "Should be the answer object: ", Answer.objects.get(pk=1).votes, "\n\n"
 
-    sessionID = request.COOKIES['sessionid']
+    # print "Request: ", request
+    sessionID = request.COOKIES['csrftoken']
     current_section = request.POST["section"]
     following_section = ""
     school_level = request.POST['school_level']
@@ -171,6 +174,9 @@ def botvinSectionVote(request):#, section, school_level):
 
     return redirect('/botvin/section/'+following_section+'/'+school_level)
 
+def index(request):
+    return render(request, "botvin/index.html")
+    
 
 def results(request):
     print "123456"
