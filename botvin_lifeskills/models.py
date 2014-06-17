@@ -5,7 +5,7 @@ from django.utils import timezone
 # Create your models here.
 class School(models.Model):
     school_code = models.CharField(max_length=15)
-
+    count = models.IntegerField(default=0)
     def __unicode__(self):
         return self.school_code
 
