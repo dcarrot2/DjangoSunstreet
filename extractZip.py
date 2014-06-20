@@ -35,14 +35,16 @@ def addGender(gen):
     return genderModel
 def addAgeRange(range):
     ageRangeObject = Age.objects.get_or_create(age=range)
+    AgeRangeObj = Age_Range.objects.get_or_create(range= range)
     return ageRangeObject
 
 
 if __name__ == '__main__':
-	print "Adding information for Zipcodes, Gender, and Ages"
-	os.environ.setdefault('DJANGO_SETTINGS_MODULE',"sunstreet.settings")
-	from demographics.views import Age, Zipcode, Gender
-	populate()
+    print "Adding information for Zipcodes, Gender, and Ages"
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE',"sunstreet.settings")
+    from demographics.views import Age, Zipcode, Gender
+    from top_news.models import Age_Range
+    populate()
 
 #print
 #print "[",
