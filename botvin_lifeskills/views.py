@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, get_list_or_404
-from botvin_lifeskills.models import Question, Answer, Botvin_Section, User
+from botvin_lifeskills.models import Question, Answer, Botvin_Section, User, School
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
@@ -175,7 +175,10 @@ def botvinSectionVote(request):#, section, school_level):
     return redirect('/botvin/section/'+following_section+'/'+school_level)
 
 def index(request):
-    return render(request, "botvin/index.html" )
+    schools = School.objects.get_queryset()
+    context = {}
+    context["schools"] = schools
+    return render(request, "botvin/index.html", context)
 
 
 def results(request):
