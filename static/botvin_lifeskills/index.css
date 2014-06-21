@@ -1,5 +1,12 @@
-span img{
-	vertical-align:middle;
+.center a{
+	display: block;
+}
+
+.center a img{
+	width: 75%;
+	padding-top: 5%;
+	padding-left: 13%;
+	
 }
 
 p{

@@ -14,7 +14,11 @@
 			<h1> Botvin Lifeskills Section {{section}}</h1>
 		</header>
 
-		{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+		{% if error_message %}
+			<h3><strong>{{ error_message }}</strong></h3>
+			<a href="{% url 'botvin_lifeskills:botvinsurvey' section school_level %}"><h4>GO BACK</h4></a>
+		{% endif %}
+
         {% ifequal section "B" %}<h1> Read each statement below and indicate whether you think each is True or False by filling in the appropriate circle. </h1>{% endifequal %}
 
         {% if school_level == "ES" %}{% if section == "C" %}<h1> Mark the circle to show if you agree or disagree with each of the statements below. </h1>{% endif %}
@@ -46,7 +50,11 @@
 		    {% endfor %}
         {% endfor %}
 
-		<input type="submit" value="Submit" />
+		{% if not error_message %}
+			<div class="buttonHolder">
+				<input type="submit" value="Submit" />
+			</div>
+		{% endif %}
 			
 		</form>
 	

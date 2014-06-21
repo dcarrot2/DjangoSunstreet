@@ -175,8 +175,8 @@ def botvinSectionVote(request):#, section, school_level):
     return redirect('/botvin/section/'+following_section+'/'+school_level)
 
 def index(request):
-    return render(request, "botvin/index.html")
-    
+    return render(request, "botvin/index.html" )
+
 
 def results(request):
     print "123456"
