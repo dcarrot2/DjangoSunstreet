@@ -24,8 +24,5 @@ class PostTestAnswerAdmin(admin.ModelAdmin):
 
 
 admin.site.register(PreTestUser, LifeSkillsPreAdmin)
-admin.site.register(PreTestQuestion, PreTestQuestionAdmin)
-admin.site.register(PreTestAnswer, PreTestAnswerAdmin)
 admin.site.register(PostTestUser, LifeSkillsPostAdmin)
-admin.site.register(PostTestQuestion, PostTestQuestionAdmin)
-admin.site.register(PostTestAnswer, PostTestAnswerAdmin)
+

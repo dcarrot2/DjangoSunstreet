@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'demographics',
     'lifeskills',
+    'top_news',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
