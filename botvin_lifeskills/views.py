@@ -31,6 +31,7 @@ def excel(request):
     jsonDec = json.decoder.JSONDecoder()
     
     columns = [
+            (u"Date Taken", 6000),
             (u"Student ID", 6000),
             (u"School ID", 6000),
             (u"School Level", 8000),   
@@ -163,7 +164,8 @@ def botvinSectionVote(request):#, section, school_level):
         r = User(student_code=1, school_code=2, myList = json.dumps(responses[sessionID]), num_questions_answered = len(responses[sessionID]), school_level=school_level)
         r.save()
         del responses[sessionID]
-        User.objects.all()
+        #User.objects.all()
+        return redirect('')
         
             
         
