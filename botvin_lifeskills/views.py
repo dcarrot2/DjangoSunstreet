@@ -71,9 +71,10 @@ def excel(request):
         row_num += 1
         
         #Write the student's student code, school code and school level into the spreadsheet
-        ws.write(row_num, 0, obj.student_code)
-        ws.write(row_num,1,obj.school_code)
-        ws.write(row_num,2,obj.school_level)
+        ws.write(row_num, 0, obj.date_survey_taken)
+        ws.write(row_num, 1, obj.student_code)
+        ws.write(row_num,2,obj.school_code)
+        ws.write(row_num,3,obj.school_level)
         
         #We cycle through each column starting at the third column and we fill them with the responses of the student
         for col_num in xrange(51):
