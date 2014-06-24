@@ -1,0 +1,31 @@
+<html>
+	<title>Botvin Questionnaires</title>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/static/lifeskills/smalldevice.css" />
+		<link rel="stylesheet" type="text/css"  href="/static/botvin_lifeskills/index.css" />
+		
+	</head>
+
+	<body>
+
+	<header class="mainHead">
+		<h1>Botvin</h1>
+	</header>
+
+	
+	<div class="center">
+		<div><a href="section/A/ES"><img alt="elementary" src="/static/img/elementary.png"></div>
+		<div><a href="section/A/MS"><img alt="middle" src="/static/img/middle.png"></div>
+		<div><a href="section/A/HS"><img alt="highschool" src="/static/img/highschool.png"></div>
+	</div>
+
+	
+
+
+
+
+	</body>
+
+</html>
+
+	

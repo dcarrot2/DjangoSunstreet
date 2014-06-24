@@ -13,6 +13,8 @@ urlpatterns = patterns('',
     url(r'^excel', views.temp, name="temp"),
     
     url(r'^download', views.excel, name="excel"),
+  
+    url(r'^index', views.index, name="index"),
 
 
 )

@@ -1,15 +1,11 @@
-from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404, get_list_or_404
-from top_news.models import Age_Range, News_Article
-from django.http import HttpResponseRedirect, HttpResponse
-from django.core.urlresolvers import reverse
-from django.utils import timezone
-from django.core import serializers
-import json
-import datetime
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+from django.core import serializers
+from top_news.models import News_Article, Age_Range
 
-# Create your views here.
+import json
+
+
 @csrf_exempt
 def requestFromAndroid(request):
     print "Post from android"
@@ -19,8 +15,16 @@ def requestFromAndroid(request):
         range = data["age_range"]
     except:
         print "Exception. Could Not Parse JSON\n"
+        
+    range = "19+"
+    r = Age_Range.objects.get_queryset().filter(range=range)
+    r = News_Article.objects.get_queryset().filter(age_range=r)
+    response = {}
+    for i in r:
+        print i
+        response[str(i.title)] = str(i.link)
 
-    newsArticles = serializers.serialize("json", News_Article.objects.get_queryset().filter(range))
+    # newsArticles = serializers.serialize("json", News_Article.objects.get_queryset().filter(age_range=r))
 
-    print "Dump: ", newsArticles
-    return HttpResponse(newsArticles)
+    print "Dump: ", response
+    return HttpResponse(json.dumps(response), content_type="application/json")

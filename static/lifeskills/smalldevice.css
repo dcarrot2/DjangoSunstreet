@@ -16,7 +16,7 @@ background-color: #FFFF99;
 }
 
 p{
-	font-size: 400%;
+	font-size: 100%;
 	text-align: left;
 	padding-left: 1cm;
 }
@@ -29,7 +29,7 @@ textarea{
 }
 
 label {
-	font-size: 350%;
+	font-size: 150%;
 	padding-left: 1cm;
 }
 
