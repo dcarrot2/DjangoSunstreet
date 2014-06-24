@@ -1,7 +1,7 @@
 import os
 import urllib2
 from BeautifulSoup import BeautifulSoup
-from botvin_lifeskills.models import School
+
 
 def populateHsList():
     url = "http://www.monterey.k12.ca.us/home/districts-and-schools/links#Districts"
@@ -23,9 +23,9 @@ def populateHsList():
 
     for element in schoolList:
         s = School.objects.get_or_create(school_code = element)
-        s.save()
     return
 if __name__ == '__main__':
     print "Adding Highschool Information"
     os.environ.setdefault('DJANGO_SETTINGS_MODULE',"sunstreet.settings")
+    from botvin_lifeskills.models import School
     populateHsList()
