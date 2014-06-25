@@ -154,6 +154,9 @@ def posttestvote(request):
 
 def response(request):
 
-	return render(request, 'lifeskills/response.html')
+    return render(request, 'lifeskills/response.html')
+    
+def index(request):
+    return render(request, 'lifeskills/index.html')
+    
 
-	

@@ -5,6 +5,7 @@ from lifeskills import views
 
 urlpatterns = patterns('',
 
+	url(r'^index/$', views.index, name='index'),
 	url(r'^pretest/$', views.pretest, name='pretest'),
         url(r'^pretestvote/$', views.pretestvote, name="pretestvote"),
 	url(r'^posttest/$', views.posttest, name='posttest'),
