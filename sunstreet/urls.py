@@ -16,5 +16,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 	url(r'^lifeskills/', include('lifeskills.urls', namespace="lifeskills")),
     url(r'^botvin/', include('botvin_lifeskills.urls', namespace="botvin_lifeskills")),
+    url(r'^topnews/', include('top_news.urls', namespace='top_news')),
 
 )
