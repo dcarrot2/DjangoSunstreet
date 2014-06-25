@@ -92,7 +92,7 @@ def excel(request):
 
 
 
-def botvinSection(request, section, school_level):
+def botvinSection(request):
             #We get the first two questions individually given
         #that they require a text field for response
 
