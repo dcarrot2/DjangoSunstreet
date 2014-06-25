@@ -191,6 +191,7 @@ def botvinSectionVote(request):#, section, school_level):
         r = User(date_survey_taken=timezone.now(), school_code=school, myList = json.dumps(responses[sessionID]), num_questions_answered = len(responses[sessionID]), school_level=school_level)
         r.save()
         del responses[sessionID]
+        del school_user[sessionID]
         #User.objects.all()
         return redirect('')
         

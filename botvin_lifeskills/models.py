@@ -19,7 +19,7 @@ class Botvin_Section(models.Model):
         return self.section_letter
 
 class User(models.Model):
-        #student_code = models.IntegerField()
+        student_code = models.IntegerField()
         school_code = models.ForeignKey(School)
         date_survey_taken = models.DateTimeField('date published')
         myList = models.TextField(null = True)
