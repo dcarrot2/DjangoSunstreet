@@ -12,19 +12,22 @@ def requestFromAndroid(request):
     try:
         data = json.loads(request.body)
         print "Data: ", data
-        range = data["age_range"]
-    except:
-        print "Exception. Could Not Parse JSON\n"
-        
-    range = "19+"
-    r = Age_Range.objects.get_queryset().filter(range=range)
-    r = News_Article.objects.get_queryset().filter(age_range=r)
-    response = {}
-    for i in r:
-        print i
-        response[str(i.title)] = str(i.link)
+        range = data["Age"]
+        print "Range: ", range
+            # range = "19+"
+        r = Age_Range.objects.get_queryset().filter(range=range)
+        r = News_Article.objects.get_queryset().filter(age_range=r)
+        response = {}
+        for i in r:
+            print i
+            response[str(i.title)] = str(i.link)
 
     # newsArticles = serializers.serialize("json", News_Article.objects.get_queryset().filter(age_range=r))
 
-    print "Dump: ", response
-    return HttpResponse(json.dumps(response), content_type="application/json")
+        print "Dump: ", response
+        return HttpResponse(json.dumps(response), content_type="application/json")
+
+    except:
+        print "Exception. Could Not Parse JSON\n"
+        return  HttpResponse("")
+
