@@ -96,14 +96,15 @@ def botvinSection(request, section, school_level):
 
     # print "\tSession ID",request.COOKIES['sessionid']
     #print request
-    for key in request.POST:
-        print 3
-        print request.POST[key]
-    
-    try: print request.POST['school']
-    except:
-        print "Cannot get post"
-
+    #print request
+    # for key in request.POST:
+    #     print 3
+    #     print request.POST[key]
+    #
+    # try: print request.POST['school']
+    # except:
+    #     print "Cannot get post"
+    print "School: ", request.COOKIES["school"]
   
     print "section: ", section
     print "school level", school_level
