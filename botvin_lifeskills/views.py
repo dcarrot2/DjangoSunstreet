@@ -10,6 +10,7 @@ import xlwt
 # Create your views here.
 
 responses = {}
+school_response = {}
 
 def temp(request):
     print datetime.datetime.now()
@@ -97,7 +98,11 @@ def botvinSection(request, section, school_level):
 
     # print "\tSession ID",request.COOKIES['sessionid']
     #print request
-
+    if(section == "A"):
+        sessionid = request.COOKIES['csrftoken']
+        global school_response
+        if(sessionid not in school_response.keys()):
+            school_response[sessionid] = request.POST["school"]
     print "section: ", section
     print "school level", school_level
     questions = []
@@ -181,6 +186,11 @@ def index(request):
     schools = School.objects.get_queryset()
     context = {}
     context["schools"] = schools
+    context["section"] = "A"
+    context["high_school"] = "HS"
+    context['middle_school'] = "MS"
+    context['elementary_school'] = 'ES'
+    print context
     return render(request, "botvin/index.html", context)
 
 

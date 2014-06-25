@@ -2,7 +2,7 @@
 	<title>Botvin Questionnaires</title>
 	<head>
 		<link rel="stylesheet" type="text/css" href="/static/lifeskills/smalldevice.css" />
-		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 1024px)" href="/static/botvin_lifeskills/index.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="/static/botvin_lifeskills/index.css" />
 		
 	</head>
 
@@ -11,6 +11,23 @@
 	<header class="mainHead">
 		<h1>Botvin</h1>
 	</header>
+
+    <form action="{% url 'botvin_lifeskills:botvinsurvey'  %}" method="post">
+        <input type="hidden" value="{{section}}" name="section">
+        <input type="hidden" value="{{high_school}}" name="school_level">
+        <div class = "choose_school" style="height: 100px;">
+            <center style="height: 100%;">
+                <strong style="font-size: 50px;">Choose the school you attend:</strong>
+                <select name="School_Choice" style="width: 50%;font-size: 200%;">
+                    <option value="">          </option>
+                    {% for school in schools %}
+                        <option value="{{school}}">{{school}}</option>
+                    {% endfor %}
+                </select>
+            </center>
+        </div>
+    </form>
+
 
 	
 	<div class="center">

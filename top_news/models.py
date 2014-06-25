@@ -12,7 +12,7 @@ class Age_Range(models.Model):
         verbose_name = "Age Range"
 
 class News_Article(models.Model):
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=100)
     link = models.URLField()
     age_range = models.ForeignKey(Age_Range)
 
