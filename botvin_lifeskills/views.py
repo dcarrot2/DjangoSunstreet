@@ -10,7 +10,6 @@ import xlwt
 # Create your views here.
 
 responses = {}
-school_response = {}
 
 def temp(request):
     print datetime.datetime.now()
@@ -72,10 +71,9 @@ def excel(request):
         row_num += 1
         
         #Write the student's student code, school code and school level into the spreadsheet
-        ws.write(row_num, 0, obj.date_survey_taken)
-        ws.write(row_num, 1, obj.student_code)
-        ws.write(row_num,2,obj.school_code)
-        ws.write(row_num,3,obj.school_level)
+        ws.write(row_num, 0, obj.student_code)
+        ws.write(row_num,1,obj.school_code)
+        ws.write(row_num,2,obj.school_level)
         
         #We cycle through each column starting at the third column and we fill them with the responses of the student
         for col_num in xrange(51):
@@ -92,17 +90,21 @@ def excel(request):
 
 
 
-def botvinSection(request):
+def botvinSection(request, section, school_level):
             #We get the first two questions individually given
         #that they require a text field for response
 
     # print "\tSession ID",request.COOKIES['sessionid']
     #print request
-    if(section == "A"):
-        sessionid = request.COOKIES['csrftoken']
-        global school_response
-        if(sessionid not in school_response.keys()):
-            school_response[sessionid] = request.POST["school"]
+    for key in request.POST:
+        print 3
+        print request.POST[key]
+    
+    try: print request.POST['school']
+    except:
+        print "Cannot get post"
+
+  
     print "section: ", section
     print "school level", school_level
     questions = []
@@ -186,11 +188,6 @@ def index(request):
     schools = School.objects.get_queryset()
     context = {}
     context["schools"] = schools
-    context["section"] = "A"
-    context["high_school"] = "HS"
-    context['middle_school'] = "MS"
-    context['elementary_school'] = 'ES'
-    print context
     return render(request, "botvin/index.html", context)
 
 

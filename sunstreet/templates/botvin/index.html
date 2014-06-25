@@ -12,6 +12,7 @@
 		<h1>Botvin</h1>
 	</header>
 
+	
     <div class = "choose_school" style="height: 100px;"> <center style="height: 100%;"><strong style="font-size: 50px;">Choose the school you attend:</strong>
         <select name="School_Choice" id="item1" style="width: 50%;font-size: 200%;">
             <option value="">          </option>
@@ -21,7 +22,9 @@
         </select>
         </center>
     </div>
-	<script>element = document.getElementById("item1").value; log(element);</script>
+	<script>element = document.getElementById("item1").value;
+	</script>
+	<input type="hidden" value = element name = "school">
 
 	<div class="center">
 		<div><a href="section/A/ES"><img alt="elementary" src="/static/img/elementary.png"></div>
