@@ -6,10 +6,12 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 import json
 import datetime
+import urllib2
 import xlwt
 # Create your views here.
 
 responses = {}
+school_user = {}
 
 def temp(request):
     print datetime.datetime.now()
@@ -104,8 +106,22 @@ def botvinSection(request, section, school_level):
     # try: print request.POST['school']
     # except:
     #     print "Cannot get post"
-    print "School: ", request.COOKIES["school"]
-  
+    global school_user
+    try:
+        #print "School: ", request.COOKIES["school"]
+        school = request.COOKIES["school"]
+        if(school == ""):
+            raise Exception()
+        school = urllib2.url2pathname(school)
+        school_user[request.COOKIES["csrftoken"]] = school
+        #print "School with %20 replaced: ", school
+
+    except:
+        print "Exception. Did not choose a school"
+        context = {}
+        context["schools"] = School.objects.get_queryset()
+        return render(request,"botvin/index.html", context)
+
     print "section: ", section
     print "school level", school_level
     questions = []
@@ -169,10 +185,10 @@ def botvinSectionVote(request):#, section, school_level):
         #typecast responses from Answer to String objects before making json dump into User.myList textfield    
         for x in range(len(responses[sessionID])):
             responses[sessionID][x] = str(responses[sessionID][x])
-
+        school = school_user[sessionID]
         print "Length of responses: ", len(responses[sessionID])
         print responses
-        r = User(student_code=1, school_code=2, myList = json.dumps(responses[sessionID]), num_questions_answered = len(responses[sessionID]), school_level=school_level)
+        r = User(date_survey_taken=timezone.now(), school_code=school, myList = json.dumps(responses[sessionID]), num_questions_answered = len(responses[sessionID]), school_level=school_level)
         r.save()
         del responses[sessionID]
         #User.objects.all()
