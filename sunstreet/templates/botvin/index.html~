@@ -22,15 +22,18 @@
         </select>
         </center>
     </div>
-	<script>element = document.getElementById("item1").value;
-			alert(element);
+	<script>
+            function setCookie(){
+                var yourSelect = document.getElementById('item1').value;
+                document.cookie= "school" + "=" + yourSelect.toString() + ";";
+            }
 	</script>
 	<input type="hidden" value = element name = "school">
 
 	<div class="center">
-		<div><a href="section/A/ES"><img alt="elementary" src="/static/img/elementary.png"></div>
-		<div><a href="section/A/MS"><img alt="middle" src="/static/img/middle.png"></div>
-		<div><a href="section/A/HS"><img alt="highschool" src="/static/img/highschool.png"></div>
+		<div><a href="section/A/ES" onclick="setCookie()"><img alt="elementary" src="/static/img/elementary.png"></div>
+		<div><a href="section/A/MS" onclick="setCookie()"><img alt="middle" src="/static/img/middle.png"></div>
+		<div><a href="section/A/HS" onclick="setCookie()"><img alt="highschool" src="/static/img/highschool.png"></div>
 	</div>
 
 

@@ -25,7 +25,7 @@
 	<script>
             function setCookie(){
                 var yourSelect = document.getElementById('item1').value;
-                document.cookie= "school" + "=" + yourSelect + ";";
+                document.cookie= "school" + "=" + encodeURIComponent(yourSelect) + ";";
             }
 	</script>
 	<input type="hidden" value = element name = "school">
