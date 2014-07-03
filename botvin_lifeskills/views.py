@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, get_list_or_404
-from botvin_lifeskills.models import Question, Answer, Botvin_Section, User, School
+from botvin_lifeskills.models import Question, Answer, Botvin_Section, School, User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
@@ -93,23 +93,11 @@ def excel(request):
 
 
 def botvinSection(request, section, school_level):
-            #We get the first two questions individually given
-        #that they require a text field for response
-
-    # print "\tSession ID",request.COOKIES['sessionid']
     #print request
-    #print request
-    # for key in request.POST:
-    #     print 3
-    #     print request.POST[key]
-    #
-    # try: print request.POST['school']
-    # except:
-    #     print "Cannot get post"
     global school_user
     try:
         #print "School: ", request.COOKIES["school"]
-        school = request.COOKIES["school"]
+        school = request.POST["School_Choice"]
         if(school == ""):
             raise Exception()
         school = urllib2.url2pathname(school)
@@ -186,6 +174,7 @@ def botvinSectionVote(request):#, section, school_level):
         for x in range(len(responses[sessionID])):
             responses[sessionID][x] = str(responses[sessionID][x])
         school = school_user[sessionID]
+        school = School.objects.get_queryset().filter(school_code = school)[0]
         print "Length of responses: ", len(responses[sessionID])
         print responses
         r = User(date_survey_taken=timezone.now(), school_code=school, myList = json.dumps(responses[sessionID]), num_questions_answered = len(responses[sessionID]), school_level=school_level)

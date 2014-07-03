@@ -14,7 +14,7 @@
 
 	
     <div class = "choose_school" style="height: 100px;"> <center style="height: 100%;"><strong style="font-size: 50px;">Choose the school you attend:</strong>
-        <select name="School_Choice" id="item1" style="width: 50%;font-size: 200%;">
+        <select name="School_Choice" id="item1" style="width: 50%;font-size: 200%;" form="schoolform">
             <option value=""></option>
             {% for school in schools %}
                 <option value="{{school}}">{{school}}</option>
@@ -23,19 +23,22 @@
         </center>
     </div>
 	<script>
-            function setCookie(){
-                var yourSelect = document.getElementById('item1').value;
-                document.cookie= "school" + "=" + encodeURIComponent(yourSelect) + ";";
-            }
+            function getSchool(school_level){
+                    document.school_select_form.action = document.school_select_form.action +school_level;
+                    //alert(document.school_select_form.action)
+                }
 	</script>
-	<input type="hidden" value = element name = "school">
 
-	<div class="center">
-		<div><a href="section/A/ES" onclick="setCookie()"><img alt="elementary" src="/static/img/elementary.png"></div>
-		<div><a href="section/A/MS" onclick="setCookie()"><img alt="middle" src="/static/img/middle.png"></div>
-		<div><a href="section/A/HS" onclick="setCookie()"><img alt="highschool" src="/static/img/highschool.png"></div>
-	</div>
-
+    <form action="section/A/" method="post" id="schoolform" name="school_select_form">
+	    <div class="center">
+            <div>
+                {% csrf_token %}
+                <div><input type="image" src = "/static/img/elementary.png" onclick="getSchool('ES')"></div>
+                <div><input type="image" src="/static/img/middle.png" onclick="getSchool('MS')" ></div>
+                <div><input type="image" src="/static/img/highschool.png" onclick="getSchool('HS')"></div>
+            </div>
+	    </div>
+    </form>
 
 
 
