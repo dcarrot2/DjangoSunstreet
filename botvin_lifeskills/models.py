@@ -19,25 +19,15 @@ class Botvin_Section(models.Model):
         return self.section_letter
 
 class User(models.Model):
-        student_code = models.IntegerField()
-        school_code = models.ForeignKey(School)
-        date_survey_taken = models.DateTimeField('date published')
-        myList = models.TextField(null = True)
-        num_questions_answered = models.IntegerField()
-        
-        school_level = models.CharField(max_length=3)
+    #student_code = models.IntegerField()
+    school_code = models.ForeignKey(School)
+    date_survey_taken = models.DateTimeField('date published')
+    myList = models.TextField(null = True)
+    num_questions_answered = models.IntegerField()
+    school_level = models.CharField(max_length=3)
+    def __unicode__(self):
+        return "Date survey taken: " + str(self.date_survey_taken) + " School:" + str(self.school_code)
 
-        # section_a_questions = models.ForeignKey(Botvin_Section, related_name = "sectionaquestions")
-        # section_b_questions = models.ForeignKey(Botvin_Section, related_name = "sectionbquestions")
-        # section_c_questions = models.ForeignKey(Botvin_Section, related_name = "sectioncquestions")
-        # section_d_questions = models.ForeignKey(Botvin_Section, related_name = "sectiondquestions")
-
-        
-        #list that will eventually hold Botvin Answer type objects made by the user.
-       
-
-        def __unicode__(self):
-            return "Student: " + str(self.student_code) + " School:" + str(self.school_code)
 
 class Question(models.Model):
     section = models.ForeignKey(Botvin_Section)
