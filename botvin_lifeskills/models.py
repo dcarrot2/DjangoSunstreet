@@ -20,16 +20,24 @@ class Botvin_Section(models.Model):
 
 class User(models.Model):
 
-    #student_code = models.IntegerField()
-    school_code = models.ForeignKey(School)
-    date_survey_taken = models.DateTimeField('date published')
-    myList = models.TextField(null = True)
-    num_questions_answered = models.IntegerField()
-    school_level = models.CharField(max_length=3)
-    def __unicode__(self):
-        return "Date survey taken: " + str(self.date_survey_taken) + " School:" + str(self.school_code)
+        school_code = models.ForeignKey(School)
+        date_survey_taken = models.DateTimeField('date published')
+        myList = models.TextField(null = True)
+        num_questions_answered = models.IntegerField()
+
+        school_level = models.CharField(max_length=3)
+
+        # section_a_questions = models.ForeignKey(Botvin_Section, related_name = "sectionaquestions")
+        # section_b_questions = models.ForeignKey(Botvin_Section, related_name = "sectionbquestions")
+        # section_c_questions = models.ForeignKey(Botvin_Section, related_name = "sectioncquestions")
+        # section_d_questions = models.ForeignKey(Botvin_Section, related_name = "sectiondquestions")
 
 
+        #list that will eventually hold Botvin Answer type objects made by the user.
+
+
+        def __unicode__(self):
+            return "School:" + str(self.school_code) + " Date survey taken: " + str(self.date_survey_taken)
 
 class Question(models.Model):
     section = models.ForeignKey(Botvin_Section)
@@ -50,13 +58,15 @@ class Answer(models.Model):
     def __unicode__(self):
         return self.choices
 
+
 class Botvin_User_Run(models.Model):
     user_key = models.CharField(max_length=50)
     answer_set = models.ForeignKey(Answer)
+
 
 #===============================================================================
 # class Choice(models.Model):
 #     user = models.ForeignKey(User)
 #     selection = models.ForeignKey(Answer)
 #===============================================================================
-    
+
