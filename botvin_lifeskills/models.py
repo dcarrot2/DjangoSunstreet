@@ -50,12 +50,9 @@ class Answer(models.Model):
     def __unicode__(self):
         return self.choices
 
-class Botvin_User_Section(models.Model):
-    section_letter = models.CharField(max_length = 3)
-    school_level = models.CharField(max_length = 3)
-    student_code = models.IntegerField()
-    answer_list = models.TextField(null=True)
-
+class Botvin_User_Run(models.Model):
+    user_key = models.CharField(max_length=50)
+    answer_set = models.ForeignKey(Answer)
 
 #===============================================================================
 # class Choice(models.Model):

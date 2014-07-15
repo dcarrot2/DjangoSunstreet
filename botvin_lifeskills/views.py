@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, get_list_or_404
-from botvin_lifeskills.models import Question, Answer, Botvin_Section, School, User
+from botvin_lifeskills.models import Question, Answer, Botvin_User_Run, School, User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
