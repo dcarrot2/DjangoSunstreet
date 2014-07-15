@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, get_list_or_404
-from botvin_lifeskills.models import Question, Answer, Botvin_Section, School, User
+from botvin_lifeskills.models import Question, Answer, Botvin_Section, User, School
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
@@ -8,6 +8,7 @@ import json
 import datetime
 import urllib2
 import xlwt
+import uuid
 # Create your views here.
 
 responses = {}
@@ -25,35 +26,35 @@ def excel(request):
     response['Content-Disposition'] = 'attachment; filename=BotvinHighSchool.xls'
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet("BotvinHighSchool")
-    
+
     userList = []
     row_num = 0
-    
+
     numUsers = len(User.objects.get_queryset().filter(school_level="HS"))
     jsonDec = json.decoder.JSONDecoder()
-    
+
     columns = [
             (u"Date Taken", 6000),
             (u"Student ID", 6000),
             (u"School ID", 6000),
-            (u"School Level", 8000),   
-               
+            (u"School Level", 8000),
+
                ]
-    
+
     for question in range(3,54):
         columns.append(("Q"+str(question-2), 8000))
-        
+
     print "Col: ", columns
-    
+
     for user in User.objects.get_queryset().filter(school_level = "HS"):
         userList.append(jsonDec.decode(user.myList))
-    
+
     print "\n\nMy User List: ", userList
-       
-    
+
+
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
-    
+
     #For styling columns
     for col_num in xrange(len(columns)):
         ws.write(row_num, col_num, columns[col_num][0], font_style)
@@ -61,48 +62,71 @@ def excel(request):
         # set column width
         ws.col(col_num).width = columns[col_num][1]
         ws.col(col_num).width = columns[col_num][1]
-        
-        
+
+
     font_style = xlwt.XFStyle()
     font_style.alignment.wrap = 1
-    
+
     userList_row = 0
-    
+
     for obj in User.objects.get_queryset().filter(school_level="HS"):
-        
+
         row_num += 1
-        
+
         #Write the student's student code, school code and school level into the spreadsheet
-        ws.write(row_num, 0, obj.student_code)
+        ws.write(row_num, 0, obj.date_survey_taken)
         ws.write(row_num,1,obj.school_code)
         ws.write(row_num,2,obj.school_level)
-        
+
         #We cycle through each column starting at the third column and we fill them with the responses of the student
         for col_num in xrange(51):
             #ws.write(row_num, col_num, userList[col_num], font_style)
             ws.write(row_num, col_num + 3, userList[userList_row][col_num])
-        
-        #Increment the index to move to next student's list  
+
+        #Increment the index to move to next student's list
         userList_row += 1
 
             # set column width
-    
+
     wb.save(response)
     return response
 
 
 
 def botvinSection(request, section, school_level):
+            #We get the first two questions individually given
+        #that they require a text field for response
+
+    # print "\tSession ID",request.COOKIES['sessionid']
     #print request
+    #print request
+    # for key in request.POST:
+    #     print 3
+    #     print request.POST[key]
+    #
+    # try: print request.POST['school']
+    # except:
+    #     print "Cannot get post"
     global school_user
+    #print request
     try:
         #print "School: ", request.COOKIES["school"]
-        school = request.POST["School_Choice"]
+        school = request.COOKIES["school"]
+        #print "School after assignment: ", school
         if(school == ""):
+            print "Raising exception"
             raise Exception()
+
         school = urllib2.url2pathname(school)
-        school_user[request.COOKIES["csrftoken"]] = school
         #print "School with %20 replaced: ", school
+        sessionID = request.COOKIES['hex']
+        #print "SessionID: ", sessionID
+        if(sessionID not in school_user.keys()):
+            print "Creating new school key"
+            school_user[sessionID] = school
+        print "School user: ", school_user
+        #school_user[request.COOKIES["csrftoken"]] = school
+
 
     except:
         print "Exception. Did not choose a school"
@@ -126,7 +150,7 @@ def botvinSection(request, section, school_level):
     context["section"] = section
     context["school_level"] = school_level
 
-    print "printing the context", context
+    #print "printing the context", context
     return render(request, "botvin/displayquestions.html", context)
 
 def botvinSectionVote(request):#, section, school_level):
@@ -137,7 +161,7 @@ def botvinSectionVote(request):#, section, school_level):
     # print "Should be the answer object: ", Answer.objects.get(pk=1).votes, "\n\n"
 
     # print "Request: ", request
-    sessionID = request.COOKIES['csrftoken']
+    sessionID = request.COOKIES['hex']
     current_section = request.POST["section"]
     following_section = ""
     school_level = request.POST['school_level']
@@ -145,23 +169,23 @@ def botvinSectionVote(request):#, section, school_level):
     questions = get_list_or_404(Question, section_letter = current_section, school_level = school_level)
     # print questions[0].answer_set.all()
     try:
-        print "1"
+        #print "1"
         global responses
-        print "2"
+        #print "2"
         if (sessionID not in responses.keys()):
             print "creating a new key"
             responses[sessionID] = []
         for i in range(0,len(questions)):
-            print i
-            print(Answer.objects.get(pk=request.POST["choice"+str(i+1)]))
+            #print i
+            #print(Answer.objects.get(pk=request.POST["choice"+str(i+1)]))
             responses[sessionID].append(Answer.objects.get(pk = request.POST["choice"+str(i+1)]))
-        print responses
+        #print responses
     except (KeyError, Question.DoesNotExist):
         print("Check your code")
 
         return render(request, 'botvin/displayquestions.html', {
-		'error_message': "You forgot to select one or more choices."})
-    
+        'error_message': "You forgot to select one or more choices."})
+
     #We render surveys depending on the section
     if (current_section == "A"):
         following_section = "B"
@@ -170,32 +194,37 @@ def botvinSectionVote(request):#, section, school_level):
     elif(current_section == "C"):
         following_section = "D"
     else:
-        #typecast responses from Answer to String objects before making json dump into User.myList textfield    
+        #typecast responses from Answer to String objects before making json dump into User.myList textfield
         for x in range(len(responses[sessionID])):
             responses[sessionID][x] = str(responses[sessionID][x])
         school = school_user[sessionID]
-        school = School.objects.get_queryset().filter(school_code = school)[0]
         print "Length of responses: ", len(responses[sessionID])
         print responses
+        school = School.objects.get_queryset().filter(school_code=school)[0]
         r = User(date_survey_taken=timezone.now(), school_code=school, myList = json.dumps(responses[sessionID]), num_questions_answered = len(responses[sessionID]), school_level=school_level)
         r.save()
         del responses[sessionID]
         del school_user[sessionID]
         #User.objects.all()
         return redirect('')
-        
-            
-        
-        
-        # responses = []
 
+
+
+
+        # responses = []
+    print "ID: " + str(sessionID) + "Responses: ", responses[sessionID]
+    print "Length: ", len(responses[sessionID])
     return redirect('/botvin/section/'+following_section+'/'+school_level)
 
 def index(request):
     schools = School.objects.get_queryset()
     context = {}
     context["schools"] = schools
-    return render(request, "botvin/index.html", context)
+    response = HttpResponse()
+    response = render(request, "botvin/index.html", context)
+    hex = uuid.uuid1().hex
+    response.set_cookie('hex', hex)
+    return response
 
 
 def results(request):
