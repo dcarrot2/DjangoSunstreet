@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, get_list_or_404
-from botvin_lifeskills.models import Question, Answer, Botvin_User_Run, School, User
+from botvin_lifeskills.models import Question, Answer, Botvin_User_Run, School, User, Botvin_User_Final
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
@@ -94,37 +94,21 @@ def excel(request):
 
 
 def botvinSection(request, section, school_level):
-            #We get the first two questions individually given
-        #that they require a text field for response
-
-    # print "\tSession ID",request.COOKIES['sessionid']
-    #print request
-    #print request
-    # for key in request.POST:
-    #     print 3
-    #     print request.POST[key]
-    #
-    # try: print request.POST['school']
-    # except:
-    #     print "Cannot get post"
-    global school_user
-    #print request
     try:
         #print "School: ", request.COOKIES["school"]
-        school = request.COOKIES["school"]
-        #print "School after assignment: ", school
-        if(school == ""):
-            print "Raising exception"
-            raise Exception()
+        if(section == 'A'):
+            school = request.POST["School_Choice"]
+            sessionID = request.COOKIES['hex']
+            Botvin_User_Run.objects.get_or_create(school=school, user_key=sessionID)
+            #print "School after assignment: ", school
+            if(school == ""):
+                print "Raising exception"
+                raise Exception()
 
-        school = urllib2.url2pathname(school)
+            school = urllib2.url2pathname(school)
         #print "School with %20 replaced: ", school
-        sessionID = request.COOKIES['hex']
+
         #print "SessionID: ", sessionID
-        if(sessionID not in school_user.keys()):
-            print "Creating new school key"
-            school_user[sessionID] = school
-        print "School user: ", school_user
         #school_user[request.COOKIES["csrftoken"]] = school
 
 
@@ -160,7 +144,7 @@ def botvinSectionVote(request):#, section, school_level):
     # print "\n\n"
     # print "Should be the answer object: ", Answer.objects.get(pk=1).votes, "\n\n"
 
-    # print "Request: ", request
+    #print "Request: ", request
     sessionID = request.COOKIES['hex']
     current_section = request.POST["section"]
     following_section = ""
@@ -170,15 +154,14 @@ def botvinSectionVote(request):#, section, school_level):
     # print questions[0].answer_set.all()
     try:
         #print "1"
-        global responses
-        #print "2"
-        if (sessionID not in responses.keys()):
-            print "creating a new key"
-            responses[sessionID] = []
+        run = Botvin_User_Run.objects.get_or_create(user_key = sessionID)
+        run = run[0]
+        print "run: ", run
+        print "run type: ", type(run)
         for i in range(0,len(questions)):
             #print i
-            #print(Answer.objects.get(pk=request.POST["choice"+str(i+1)]))
-            responses[sessionID].append(Answer.objects.get(pk = request.POST["choice"+str(i+1)]))
+
+            run.answer_set.add(Answer.objects.get(pk = request.POST["choice"+str(i+1)]))
         #print responses
     except (KeyError, Question.DoesNotExist):
         print("Check your code")
@@ -194,26 +177,12 @@ def botvinSectionVote(request):#, section, school_level):
     elif(current_section == "C"):
         following_section = "D"
     else:
-        #typecast responses from Answer to String objects before making json dump into User.myList textfield
-        for x in range(len(responses[sessionID])):
-            responses[sessionID][x] = str(responses[sessionID][x])
-        school = school_user[sessionID]
-        print "Length of responses: ", len(responses[sessionID])
-        print responses
-        school = School.objects.get_queryset().filter(school_code=school)[0]
-        r = User(date_survey_taken=timezone.now(), school_code=school, myList = json.dumps(responses[sessionID]), num_questions_answered = len(responses[sessionID]), school_level=school_level)
-        r.save()
-        del responses[sessionID]
-        del school_user[sessionID]
-        #User.objects.all()
-        return redirect('')
+        final = Botvin_User_Final.objects.get_or_create(user_key=run.user_key, school=run.school, date_taken=timezone.now())
+        final=final[0]
+        for ans in run.answer_set.all():
+            final.answer_set.add(ans)
+        run.delete()
 
-
-
-
-        # responses = []
-    print "ID: " + str(sessionID) + "Responses: ", responses[sessionID]
-    print "Length: ", len(responses[sessionID])
     return redirect('/botvin/section/'+following_section+'/'+school_level)
 
 def index(request):
