@@ -145,6 +145,8 @@ def botvinSectionVote(request):#, section, school_level):
         for ans in run.answer_set.all():
             final.answer_set.add(ans)
         run.delete()
+        
+        return redirect('botvin/thankyou')
 
     return redirect('/botvin/section/'+following_section+'/'+school_level)
 
@@ -157,6 +159,10 @@ def index(request):
     hex = uuid.uuid1().hex
     response.set_cookie('hex', hex)
     return response
+
+def end(request):
+    
+    return render(request,"botvin/end.html")
 
 
 def results(request):
