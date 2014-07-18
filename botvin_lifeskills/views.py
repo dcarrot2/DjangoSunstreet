@@ -17,12 +17,12 @@ def temp(request):
     return render(request, "botvin/temp.html")
 
 
-def excel(request):
+def excel(request, school_level):
     import xlwt
     Users = User.objects.all()
     users_1 = Botvin_User_Final.objects.get_queryset()
     response = HttpResponse(mimetype='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename=BotvinHighSchool.xls'
+    response['Content-Disposition'] = 'attachment; filename=Botvin'+school_level+'.xls'
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet("BotvinHighSchool")
 
@@ -40,16 +40,10 @@ def excel(request):
 
                ]
 
-    for question in range(4,55):
-        columns.append(("Q"+str(question-3), 8000))
+    for q in Question.objects.get_queryset().filter(school_level=school_level):
+        columns.append((q.question, 8000))
 
     print "Col: ", columns
-
-    # for user in User.objects.get_queryset().filter(school_level = "HS"):
-    #     userList.append(jsonDec.decode(user.myList))
-
-    # print "\n\nMy User List: ", userList
-
 
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
@@ -57,8 +51,6 @@ def excel(request):
     #For styling columns
     for col_num in xrange(len(columns)):
         ws.write(row_num, col_num, columns[col_num][0], font_style)
-        # set column widthws.write(row_num, col_num, columns[col_num][0], font_style)
-        # set column width
         ws.col(col_num).width = columns[col_num][1]
         ws.col(col_num).width = columns[col_num][1]
 
@@ -76,7 +68,7 @@ def excel(request):
         ws.write(row_num, 0, str(obj.date_taken))
         ws.write(row_num,1,str(obj.user_key))
         ws.write(row_num,2,str(obj.school))
-        ws.write(row_num, 3, 'HS')
+        ws.write(row_num, 3, school_level)
         col_num = 4;
         #We cycle through each column starting at the third column and we fill them with the responses of the student
         for answer in obj.answer_set.all():
