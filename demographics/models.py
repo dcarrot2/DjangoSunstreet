@@ -26,7 +26,8 @@ class User(models.Model):
     age = models.ForeignKey(Age)
     gender = models.ForeignKey(Gender)
     userCount = models.IntegerField(default = 1)
+    date = models.DateTimeField("date added")
     def __unicode__(self):  # Python 3: def __str__(self):
-        return str(self.userCount)
+        return str(self.date)
 
 

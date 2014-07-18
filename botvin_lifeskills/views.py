@@ -18,19 +18,12 @@ def temp(request):
 
 
 def excel(request, school_level):
-    import xlwt
-    Users = User.objects.all()
-    users_1 = Botvin_User_Final.objects.get_queryset()
+    users_1 = Botvin_User_Final.objects.get_queryset().filter(school_level=school_level)
     response = HttpResponse(mimetype='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename=Botvin'+school_level+'.xls'
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet("BotvinHighSchool")
-
-    userList = []
     row_num = 0
-
-    numUsers = len(users_1)
-    jsonDec = json.decoder.JSONDecoder()
 
     columns = [
             (u"Date Taken", 6000),
