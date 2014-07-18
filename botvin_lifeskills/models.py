@@ -62,12 +62,14 @@ class Answer(models.Model):
 class Botvin_User_Run(models.Model):
     user_key = models.CharField(max_length=50)
     school = models.CharField(max_length=50)
+    school_level = models.CharField(max_length=2)
     answer_set = models.ManyToManyField(Answer)
     def __unicode__(self):
         return self.user_key
 
 class Botvin_User_Final(models.Model):
     user_key = models.CharField(max_length=50)
+    school_level = models.CharField(max_length=3)
     school = models.CharField(max_length=50)
     answer_set = models.ManyToManyField(Answer)
     date_taken = models.DateTimeField('date published')

@@ -11,8 +11,6 @@ import xlwt
 import uuid
 # Create your views here.
 
-responses = {}
-school_user = {}
 
 def temp(request):
     print datetime.datetime.now()
@@ -22,6 +20,7 @@ def temp(request):
 def excel(request):
     import xlwt
     Users = User.objects.all()
+    users_1 = Botvin_User_Final.objects.get_queryset()
     response = HttpResponse(mimetype='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename=BotvinHighSchool.xls'
     wb = xlwt.Workbook(encoding='utf-8')
@@ -30,26 +29,26 @@ def excel(request):
     userList = []
     row_num = 0
 
-    numUsers = len(User.objects.get_queryset().filter(school_level="HS"))
+    numUsers = len(users_1)
     jsonDec = json.decoder.JSONDecoder()
 
     columns = [
             (u"Date Taken", 6000),
-            (u"Student ID", 6000),
+            (u'Student ID', 6000),
             (u"School ID", 6000),
             (u"School Level", 8000),
 
                ]
 
-    for question in range(3,54):
-        columns.append(("Q"+str(question-2), 8000))
+    for question in range(4,55):
+        columns.append(("Q"+str(question-3), 8000))
 
     print "Col: ", columns
 
-    for user in User.objects.get_queryset().filter(school_level = "HS"):
-        userList.append(jsonDec.decode(user.myList))
+    # for user in User.objects.get_queryset().filter(school_level = "HS"):
+    #     userList.append(jsonDec.decode(user.myList))
 
-    print "\n\nMy User List: ", userList
+    # print "\n\nMy User List: ", userList
 
 
     font_style = xlwt.XFStyle()
@@ -69,20 +68,21 @@ def excel(request):
 
     userList_row = 0
 
-    for obj in User.objects.get_queryset().filter(school_level="HS"):
+    for obj in users_1:
 
         row_num += 1
 
         #Write the student's student code, school code and school level into the spreadsheet
-        ws.write(row_num, 0, obj.date_survey_taken)
-        ws.write(row_num,1,obj.school_code)
-        ws.write(row_num,2,obj.school_level)
-
+        ws.write(row_num, 0, str(obj.date_taken))
+        ws.write(row_num,1,str(obj.user_key))
+        ws.write(row_num,2,str(obj.school))
+        ws.write(row_num, 3, 'HS')
+        col_num = 4;
         #We cycle through each column starting at the third column and we fill them with the responses of the student
-        for col_num in xrange(51):
+        for answer in obj.answer_set.all():
             #ws.write(row_num, col_num, userList[col_num], font_style)
-            ws.write(row_num, col_num + 3, userList[userList_row][col_num])
-
+            ws.write(row_num, col_num, answer.choices)
+            col_num += 1
         #Increment the index to move to next student's list
         userList_row += 1
 
@@ -95,23 +95,15 @@ def excel(request):
 
 def botvinSection(request, section, school_level):
     try:
-        #print "School: ", request.COOKIES["school"]
         if(section == 'A'):
             school = request.POST["School_Choice"]
             sessionID = request.COOKIES['hex']
-            Botvin_User_Run.objects.get_or_create(school=school, user_key=sessionID)
-            #print "School after assignment: ", school
+            Botvin_User_Run.objects.get_or_create(school=school, user_key=sessionID, school_level=school_level)
             if(school == ""):
                 print "Raising exception"
                 raise Exception()
 
             school = urllib2.url2pathname(school)
-        #print "School with %20 replaced: ", school
-
-        #print "SessionID: ", sessionID
-        #school_user[request.COOKIES["csrftoken"]] = school
-
-
     except:
         print "Exception. Did not choose a school"
         context = {}
@@ -126,10 +118,6 @@ def botvinSection(request, section, school_level):
 
 
     context = {}
-    # for i in range(0, len(questions)):
-    #     context["question_"+ str(i+1)] = questions[i]
-    #
-    # print questions
     context["questions"] = questions
     context["section"] = section
     context["school_level"] = school_level
@@ -139,30 +127,19 @@ def botvinSection(request, section, school_level):
 
 def botvinSectionVote(request):#, section, school_level):
     questions = []
-    # print "123456789"
-    # print "request.post['1']", request.POST['1']
-    # print "\n\n"
-    # print "Should be the answer object: ", Answer.objects.get(pk=1).votes, "\n\n"
-
-    #print "Request: ", request
     sessionID = request.COOKIES['hex']
     current_section = request.POST["section"]
     following_section = ""
     school_level = request.POST['school_level']
-    # print request
     questions = get_list_or_404(Question, section_letter = current_section, school_level = school_level)
-    # print questions[0].answer_set.all()
     try:
-        #print "1"
         run = Botvin_User_Run.objects.get_or_create(user_key = sessionID)
         run = run[0]
         print "run: ", run
         print "run type: ", type(run)
         for i in range(0,len(questions)):
-            #print i
-
             run.answer_set.add(Answer.objects.get(pk = request.POST["choice"+str(i+1)]))
-        #print responses
+
     except (KeyError, Question.DoesNotExist):
         print("Check your code")
 
@@ -177,7 +154,8 @@ def botvinSectionVote(request):#, section, school_level):
     elif(current_section == "C"):
         following_section = "D"
     else:
-        final = Botvin_User_Final.objects.get_or_create(user_key=run.user_key, school=run.school, date_taken=timezone.now())
+        final = Botvin_User_Final.objects.get_or_create(user_key=run.user_key, school=run.school, date_taken=timezone.now(),
+                                                        school_level = run.school_level)
         final=final[0]
         for ans in run.answer_set.all():
             final.answer_set.add(ans)

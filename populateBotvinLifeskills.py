@@ -2,7 +2,7 @@ import os
 def populate():
     #high school questionnaire will use the eighth index of this question list
     sectionAQuestions = ["My age", "Are you:", "Who do you live with most of the time? (Pick only one)", "Are you Hispanic or Latino?",
-                        "What is your race? (SELECT ONE OR MORE.)", "What grade are you in?", "What grades do you generally get in school? (Pick only one)",
+                        "What is your race?", "What grade are you in?", "What grades do you generally get in school? (Pick only one)",
                         "About how many days were you absent from school last year? (Pick only one)","Do you currently have a job? (Pick only one)"]
 
     hsSectionBQuestions = ["Setting a health goal is a good way to try to improve your health.", "Paying attention to your health is not important when you are at my age.",
