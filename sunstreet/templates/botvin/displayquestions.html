@@ -7,11 +7,17 @@
 		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			320px)" href="/static/lifeskills/smalldevice.css" />
 		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			480px)" href="/static/lifeskills/smalldevice.css" />
 		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			1024px)" href="/static/lifeskills/smalldevice.css" />
-		<script type="text/javascript" src = "/static/js/jquery.2.1.1.min.js"></script>
+		<script type="text/javascript" src = "/static/js/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src = "/static/js/displayquestions.js"></script>
 		<script type="text/javascript" src = "/static/js/jquery.validate.js"></script>
 
-
+        <style>
+            label.error {
+                color: red;
+                text-decoration: underline;
+                font-weight: bold;
+            }
+        </style>
 	</head>
 	<body class = "body">
 		<header class = "mainHead">
@@ -31,7 +37,7 @@
         {% if school_level == "ES" %}{% if section == "D" %}<h1> Mark he circle for each statement to show how often you do the following things</h1>{% endif %}
         {% elif section == "D" %}<h1> Please fill in each circle to show how you would handle the following situations. </h1>{% endif %}
 
-        <form action="{% url 'botvin_lifeskills:botvinSectionVote'  %}" method="post" id="radio_group">
+        <form action="{% url 'botvin_lifeskills:botvinSectionVote'  %}" method="post" id="radio_group" name="radio_group">
 
             <input type="hidden" value="{{school_level}}" name="school_level">
             <input type="hidden" value="{{section}}" name="section">
@@ -48,7 +54,7 @@
 		    {% for choice in question.answer_set.all %}
 
                 <h5></h5>
-			    <input type="radio" name=choice{{question.question_number}} id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+			    <input type="radio" name=choice{{question.question_number}} id="choice{{ forloop.counter }}" value="{{ choice.id }}" required/>
 
 			    <label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
 		    {% endfor %}
@@ -61,6 +67,11 @@
 		{% endif %}
 			
 		</form>
-	
+	    <script>
+            $(document).ready(function () {
+                $("#radio_group").validate();
+            });
+
+	    </script>
 	</body>
 </html>

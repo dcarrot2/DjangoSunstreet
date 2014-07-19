@@ -79,21 +79,15 @@ def excel(request, school_level):
 
 
 def botvinSection(request, section, school_level):
-    print "Request", request
     try:
         if(section == 'A'):
-            print "School Level: ", school_level
-            print "Section: ", section
             school = request.POST["School_Choice"]
-            print "School: " , school
             sessionID = request.COOKIES['hex']
-            print "SessionID: ", sessionID
-            Botvin_User_Run.objects.get_or_create(school=school, user_key=sessionID, school_level=school_level)
+            run = Botvin_User_Run.objects.get_or_create(school=school, user_key=sessionID, school_level=school_level)
             if(school == ""):
+                run.delete()
                 print "Raising exception"
                 raise Exception()
-
-            school = urllib2.url2pathname(school)
     except:
         print "Exception. Did not choose a school"
         context = {}
