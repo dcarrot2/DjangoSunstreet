@@ -3,7 +3,6 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="/static/lifeskills/smalldevice.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="/static/botvin_lifeskills/index.css" />
-        <script type="text/javascript" src='/static/js/index.js'></script>
 		
 	</head>
 
@@ -25,18 +24,28 @@
     </div>
 	<script>
             function getSchool(school_level){
-                    document.school_select_form.action = document.school_select_form.action +school_level;
-                    //alert(document.school_select_form.action)
+                var e = document.getElementById("item1");
+                var school = e.options[e.selectedIndex].value;
+                if (school == ""){
+                    alert("You did not choose a school!");
+                    return false;
                 }
+                else{
+                    document.school_select_form.action = document.school_select_form.action +school_level;
+                    return true;
+                }
+
+                //alert(document.school_select_form.action)
+            }
 	</script>
 
     <form action="section/A/" method="post" id="schoolform" name="school_select_form">
 	    <div class="center">
             <div>
                 {% csrf_token %}
-                <div><input type="image" src = "/static/img/elementary.png" onclick="getSchool('ES')" style="width:75%;padding-top: 5%;padding-left: 13%;"></div>
-                <div><input type="image" src="/static/img/middle.png" onclick="getSchool('MS')" style="width:75%;padding-top: 5%;padding-left: 13%;"></div>
-                <div><input type="image" src="/static/img/highschool.png" onclick="getSchool('HS')" style="width:75%;padding-top: 5%;padding-left: 13%;"></div>
+                <div style="width:69%;margin:0 auto;"><input type="image" src = "/static/img/elementary.png" onclick="getSchool('ES')" style="width:75%;padding-top: 5%;padding-left: 13%;"></div>
+                <div style="width:69%;margin:0 auto;"><input type="image" src="/static/img/middle.png" onclick="getSchool('MS')" style="width:75%;padding-top: 5%;padding-left: 13%;"></div>
+                <div style="width:69%;margin:0 auto;"><input type="image" src="/static/img/highschool.png" onclick="getSchool('HS')" style="width:75%;padding-top: 5%;padding-left: 13%;"></div>
             </div>
 	    </div>
     </form>

@@ -27,7 +27,7 @@
         {% if school_level == "ES" %}{% if section == "D" %}<h1> Mark he circle for each statement to show how often you do the following things</h1>{% endif %}
         {% elif section == "D" %}<h1> Please fill in each circle to show how you would handle the following situations. </h1>{% endif %}
 
-        <form action="{% url 'botvin_lifeskills:botvinSectionVote'  %}" method="post">
+        <form action="{% url 'botvin_lifeskills:botvinSectionVote'  %}" method="post" id="radio_group">
 
             <input type="hidden" value="{{school_level}}" name="school_level">
             <input type="hidden" value="{{section}}" name="section">
