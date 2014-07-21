@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse ,HttpResponseRedirect #generate http responses
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
-from datetime import datetime
 from matplotlib import pylab
 from pylab import *
 import PIL
@@ -56,7 +55,7 @@ def receiveDataFromAndroid(request):
     selectedGender.count += 1
     
     #creates a new user to store in the database
-    u = User(zip=selectedZip, age=selectedAgeGroup, gender=selectedGender, userCount = numUsers, date = datetime.now().date())
+    u = User(zip=selectedZip, age=selectedAgeGroup, gender=selectedGender, userCount = numUsers)
     numUsers += 1
     u.save()
     selectedAgeGroup.save()
