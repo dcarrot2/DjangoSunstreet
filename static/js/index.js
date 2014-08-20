@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	$("input").click(function(){
+	$("input").click(function( event ){
 		
 		var e = document.getElementById("item1");
 		if($(e).val() == ""){
@@ -8,7 +8,6 @@ $(document).ready(function(){
 			return false;
 		}
 		else{
-
 			document.school_select_form.action = document.school_select_form.action + event.target.id;
 			return true;
 		}

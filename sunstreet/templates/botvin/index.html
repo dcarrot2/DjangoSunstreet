@@ -1,7 +1,7 @@
-<html>
+{% extends "botvin/base.html" %}
+{% block body_block %}
 	<title>Botvin Questionnaires</title>
 	<head>
-		<link rel="stylesheet" type="text/css" href="/static/lifeskills/smalldevice.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="/static/botvin_lifeskills/index.css" />
         <script type="text/javascript" src='/static/js/jquery-2.1.1.min.js'></script>
         <script type="text/javascript" src='/static/js/index.js'></script>
@@ -10,12 +10,12 @@
 	<body>
 
 	<header class="mainHead">
-		<h1>Botvin</h1>
+		<h1 style="text-align: center;">Botvin</h1>
 	</header>
 
 	
-    <div class = "choose_school" style="height: 100px;"> <center style="height: 100%;"><strong style="font-size: 50px;">Choose the school you attend:</strong>
-        <select name="School_Choice" id="item1" style="width: 50%;font-size: 200%;" form="schoolform">
+    <div class = "choose_school"> <center><strong>Choose the school you attend:</strong>
+        <select name="School_Choice" id="item1" form="schoolform">
             <option value=""></option>
             {% for school in schools %}
                 <option value="{{school}}">{{school}}</option>
@@ -23,27 +23,14 @@
         </select>
         </center>
     </div>
-	<script>
-            function getSchool(school_level){
-                var e = document.getElementById("item1");
-                var school = e.options[e.selectedIndex].value;
-                document.school_select_form.action = document.school_select_form.action +school_level;
-                return true;
-              
 
-                //alert(document.school_select_form.action)
-            }
-	</script>
 
     <form action="section/A/" method="post" id="schoolform" name="school_select_form">
-	    <div class="center">
-            <div>
+	    
                 {% csrf_token %}
-                <div style="width:69%;margin:0 auto;"><input type="image" id = "ES" src = "/static/img/elementary.png" value = "ES" style="width:75%;padding-top: 5%;padding-left: 13%;"></div>
-                <div style="width:69%;margin:0 auto;"><input type="image" id = "MS" src="/static/img/middle.png" value = "MS" style="width:75%;padding-top: 5%;padding-left: 13%;"></div>
-                <div style="width:69%;margin:0 auto;"><input type="image" id = "HS" src="/static/img/highschool.png" value = "HS" style="width:75%;padding-top: 5%;padding-left: 13%;"></div>
-            </div>
-	    </div>
+                <input type="image" id = "ES" src = "/static/img/elementary.png" value = "ES" style="width:75%;margin-top: 5%;margin-left:13%;border-radius:40px;-webkit-border-radius: 40px;-moz-border-radius: 40px;">
+                <input type="image" id = "MS" src="/static/img/middle.png" value = "MS" style="width:75%;margin-top: 5%;margin-left: 13%;border-radius:40px;-webkit-border-radius: 40px;-moz-border-radius: 40px;">
+                <input type="image" id = "HS" src="/static/img/highschool.png" value = "HS" style="width:75%;margin-top: 5%;margin-left: 13%;border-radius:40px;-webkit-border-radius: 40px;-moz-border-radius: 40px;">
     </form>
 
 
@@ -51,10 +38,7 @@
 
 
 	</body>
-<script>
-$("#item1").validate();
-</script>
 
-</html>
+{% endblock %}
 
 	
