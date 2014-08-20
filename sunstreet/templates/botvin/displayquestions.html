@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html>	
+{% extends "botvin/base.html" %}
+{% load static %}
+{% block body_block %}
 	<head>
 		<title>{{school_level}} Botvin Lifeskills Survey {{section}}</title>
-		<meta charset = "utf-8" />
-		<link rel="stylesheet" type="text/css"href="/static/lifeskills/smalldevice.css" />
-		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			320px)" href="/static/lifeskills/smalldevice.css" />
-		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			480px)" href="/static/lifeskills/smalldevice.css" />
-		<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 			1024px)" href="/static/lifeskills/smalldevice.css" />
-		<script type="text/javascript" src = "/static/js/jquery-2.1.1.min.js"></script>
-		<script type="text/javascript" src = "/static/js/displayquestions.js"></script>
-		<script type="text/javascript" src = "/static/js/jquery.validate.js"></script>
+		<script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+		<script src="{% static 'js/jquery.validate.js' %}"></script>
+
 
         <style>
             label.error {
@@ -19,9 +15,9 @@
             }
         </style>
 	</head>
-	<body class = "body">
+	<body class="body">
 		<header class = "mainHead">
-			<h1> Botvin Lifeskills Section {{section}}</h1>
+			<h1 style="text-align:center; margin-bottom: 25px;"> Botvin Lifeskills Section {{section}}</h1>
 		</header>
 
 		{% if error_message %}
@@ -29,13 +25,13 @@
 			<a href="{% url 'botvin_lifeskills:botvinsurvey' section school_level %}"><h4>GO BACK</h4></a>
 		{% endif %}
 
-        {% ifequal section "B" %}<h1> Read each statement below and indicate whether you think each is True or False by filling in the appropriate circle. </h1>{% endifequal %}
+        {% ifequal section "B" %}<p> Read each statement below and indicate whether you think each is True or False by filling in the appropriate circle. </p>{% endifequal %}
 
-        {% if school_level == "ES" %}{% if section == "C" %}<h1> Mark the circle to show if you agree or disagree with each of the statements below. </h1>{% endif %}
-        {% elif section == "C" %}<h1> Please fill in the circle to show how much you agree or disagree with each statement.</h1>{% endif %}
+        {% if school_level == "ES" %}{% if section == "C" %}<p> Mark the circle to show if you agree or disagree with each of the statements below. </p>{% endif %}
+        {% elif section == "C" %}<p> Please fill in the circle to show how much you agree or disagree with each statement.</p>{% endif %}
 
-        {% if school_level == "ES" %}{% if section == "D" %}<h1> Mark he circle for each statement to show how often you do the following things</h1>{% endif %}
-        {% elif section == "D" %}<h1> Please fill in each circle to show how you would handle the following situations. </h1>{% endif %}
+        {% if school_level == "ES" %}{% if section == "D" %}<p> Mark he circle for each statement to show how often you do the following things</p>{% endif %}
+        {% elif section == "D" %}<p> Please fill in each circle to show how you would handle the following situations. </p>{% endif %}
 
         <form action="{% url 'botvin_lifeskills:botvinSectionVote'  %}" method="post" id="radio_group" name="radio_group">
 
@@ -44,20 +40,24 @@
 		{% csrf_token %}
 
 		{% for question in questions %}
-                {% if school_level == "ES" %}{% if section == "D" %}{% if forloop.counter == 7 %}<h2> Mark the word for each statement to show how likely you would be to do the following things.</h2>{%endif%}{%endif%}
-                {% elif section == "D" %}{% if forloop.counter == 1 %}<h2> How likely would you be to: </h2>{%endif%}
-                {% if forloop.counter == 6 %}<h2> How likely would you do the following things: </h2>{%endif%}
-                {% if forloop.counter == 9 %}<h2> When you feel anxious you: </h2>{%endif%}
-                {% if forloop.counter == 11 %}<h2> In general: </h2>{%endif%}{%endif%}
+			<div style="margin-bottom: 2cm;">
+                {% if school_level == "ES" %}{% if section == "D" %}{% if forloop.counter == 7 %}<p> Mark the word for each statement to show how likely you would be to do the following things.</p>{%endif%}{%endif%}
+                {% elif section == "D" %}{% if forloop.counter == 1 %}<p> How likely would you be to: </p>{%endif%}
+                {% if forloop.counter == 6 %}<p> How likely would you do the following things: </p>{%endif%}
+                {% if forloop.counter == 9 %}<p> When you feel anxious you: </p>{%endif%}
+                {% if forloop.counter == 11 %}<p> In general: </p>{%endif%}{%endif%}
 
-            <p>{{question.question_number}}. {{question}}</p>
+
+            <p style="font-size:x-large; font-weight: bold;">{{question.question_number}}. {{question}}</p>
 		    {% for choice in question.answer_set.all %}
 
-                <h5></h5>
-			    <input type="radio" name=choice{{question.question_number}} id="choice{{ forloop.counter }}" value="{{ choice.id }}" required/>
-
-			    <label for="choice{{ forloop.counter }}">{{ choice.choices }}</label><br />
+               		<label for="choice{{ forloop.counter }}" style="font-size: large;">
+			    	<input type="radio" name=choice{{question.question_number}} id="choice{{ forloop.counter }}" value="{{ choice.id }}" required/>
+			    	{{ choice.choices }}
+			    	</label><br />
+				
 		    {% endfor %}
+			</div>
         {% endfor %}
 
 		{% if not error_message %}
@@ -67,11 +67,12 @@
 		{% endif %}
 			
 		</form>
-	    <script>
-            $(document).ready(function () {
-                $("#radio_group").validate();
-            });
+			<script>
+				$(document).ready(function () {
+				$("#radio_group").validate();
+				}(jQuery));
 
-	    </script>
+			</script>
+
 	</body>
-</html>
+{% endblock %}

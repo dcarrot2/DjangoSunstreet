@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html>
-	<script type="text/javascript">
-	function closeWindow() {
-	setTimeout(function() {
-	window.close();
-	}, 10000);
-	}
+{% extends "botvin/base.html" %}
+{% load static %}
+<script type="text/javascript">
+function closeWindow() {
+setTimeout(function() {
+window.close();
+}, 10000);
+}
 
-	window.onload = closeWindow();
-	</script>
+window.onload = closeWindow();
+</script>
 	
-
+<body>
 	<h1>Thank you. Your response has been recorded.</h1>
 	<p> This window will close in 10 seconds</p>	
-
-</html>
+</body>

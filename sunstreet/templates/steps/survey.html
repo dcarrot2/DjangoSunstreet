@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+        <p>Test</p>
+
+        <form id="survey" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ question_form.non_field_errors }}
+            {{ question_form.age.errors }}
+            <label for="id_age">What is your age?</label>
+            {{ question_form.age }}
+
+            {{ question.form.non_field_errors }}
+            {{ question_form.gender.errors }}
+            <label for="id_gender">What is your gender?</label></form>
+            {{ question_form.gender }}
+
+        </form>
+
+</html>

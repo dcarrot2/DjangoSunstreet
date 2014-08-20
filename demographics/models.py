@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 
@@ -26,8 +27,9 @@ class User(models.Model):
     age = models.ForeignKey(Age)
     gender = models.ForeignKey(Gender)
     userCount = models.IntegerField(default = 1)
-    date = models.DateTimeField("date added")
+    date = models.DateTimeField(default = datetime.now, blank=True)
     def __unicode__(self):  # Python 3: def __str__(self):
         return str(self.date)
+
 
 
