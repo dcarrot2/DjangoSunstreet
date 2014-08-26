@@ -144,7 +144,7 @@ def botvinSectionVote(request):#, section, school_level):
         for ans in run.answer_set.all():
             final.answer_set.add(ans)
         run.delete()
-        return redirect(request, 'botvin/end.html')
+        return redirect('/botvin/thankyou/')
 
     return redirect('/botvin/section/'+following_section+'/'+school_level)
 
