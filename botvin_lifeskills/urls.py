@@ -16,7 +16,7 @@ urlpatterns = patterns('',
   
     url(r'^index', views.index, name="index"),
 
-    url(r'^thankyou', views.end, name="end"),
+    url(r'^section/botvinVote/thankyou/$', views.end, name="end"),
 
 
 )

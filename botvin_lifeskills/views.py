@@ -144,7 +144,6 @@ def botvinSectionVote(request):#, section, school_level):
         for ans in run.answer_set.all():
             final.answer_set.add(ans)
         run.delete()
-        
         return redirect(request, 'botvin/end.html')
 
     return redirect('/botvin/section/'+following_section+'/'+school_level)
@@ -160,7 +159,8 @@ def index(request):
     return response
 
 def end(request):
-    
+    print 3
+
     return render(request,"botvin/end.html")
 
 

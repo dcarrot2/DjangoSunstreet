@@ -51,7 +51,7 @@
             <p style="font-size:x-large; font-weight: bold;">{{question.question_number}}. {{question}}</p>
 		    {% for choice in question.answer_set.all %}
 
-               		<label for="choice{{ forloop.counter }}" style="font-size: large;">
+               		<label style="font-size: large;">
 			    	<input type="radio" name=choice{{question.question_number}} id="choice{{ forloop.counter }}" value="{{ choice.id }}" required/>
 			    	{{ choice.choices }}
 			    	</label><br />
