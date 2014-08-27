@@ -26,16 +26,6 @@ class User(models.Model):
         num_questions_answered = models.IntegerField()
 
         school_level = models.CharField(max_length=3)
-
-        # section_a_questions = models.ForeignKey(Botvin_Section, related_name = "sectionaquestions")
-        # section_b_questions = models.ForeignKey(Botvin_Section, related_name = "sectionbquestions")
-        # section_c_questions = models.ForeignKey(Botvin_Section, related_name = "sectioncquestions")
-        # section_d_questions = models.ForeignKey(Botvin_Section, related_name = "sectiondquestions")
-
-
-        #list that will eventually hold Botvin Answer type objects made by the user.
-
-
         def __unicode__(self):
             return "School:" + str(self.school_code) + " Date survey taken: " + str(self.date_survey_taken)
 
