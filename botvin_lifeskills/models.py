@@ -2,7 +2,6 @@ from django.db import models
 
 from django.utils import timezone
 
-# Create your models here.
 class School(models.Model):
     school_code = models.CharField(max_length=15)
     count = models.IntegerField(default=0)
@@ -63,6 +62,9 @@ class Botvin_User_Final(models.Model):
     school = models.CharField(max_length=50)
     answer_set = models.ManyToManyField(Answer)
     date_taken = models.DateTimeField('date taken')
+
+    class Meta:
+        verbose_name = "Botvin User"
 
 
 
