@@ -24,7 +24,11 @@ display: block;
 
 #branding h1{ color: #fff; }
 .module h2, .module caption, .inline-group h2 { background:#ccc url(/img/admin/nav-bg.gif) bottom left repeat-x; color: #333940; }
-a.section:link, a.section:visited { color: #9CA974; }
+a.section:link, a.section:visited { color: ##D9DAD7; }
+
+.module caption {
+	background: black;
+}
 
 #content p
 {
@@ -64,6 +68,7 @@ color: #fff;
 {% block branding %}
 <h1 id="site-name">{% trans 'Sunstreet Centers Database' %}</h1>
 
+
 {% endblock %}
 
 
@@ -72,11 +77,11 @@ color: #fff;
 
 {% endblock %}
 
+{% block content_title %}{% if title %}<h1>Site and App Administration</h1>{% endif %}{% endblock %}
+
 
 {% block content %}
-<div id = "content" class"colMS">
-	<p> LOLOLOLOL </p>
-</div>
+
 
 {% endblock %}
 
