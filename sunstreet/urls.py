@@ -18,4 +18,6 @@ urlpatterns = patterns('',
     url(r'^botvin/', include('botvin_lifeskills.urls', namespace="botvin_lifeskills")),
     url(r'^topnews/', include('top_news.urls', namespace='top_news')),
     url(r'^forms/', include(forms_builder.forms.urls)),
+    url(r'^events/', include('events.urls', namespace="events")),
+
 )

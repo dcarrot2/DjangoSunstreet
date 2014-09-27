@@ -145,6 +145,7 @@ INSTALLED_APPS = (
     'demographics',
     'top_news',
     'forms_builder.forms',
+    'events',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
