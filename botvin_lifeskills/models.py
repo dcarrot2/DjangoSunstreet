@@ -2,7 +2,6 @@ from django.db import models
 
 from django.utils import timezone
 
-# Create your models here.
 class School(models.Model):
     school_code = models.CharField(max_length=15)
     count = models.IntegerField(default=0)
@@ -14,7 +13,7 @@ class School(models.Model):
 class Botvin_Section(models.Model):
     section_letter = models.CharField(max_length = 2)
     school_level = models.CharField(max_length = 3)
-    #user = models.ForeignKey(User)
+    
     def __unicode__(self):
         return self.section_letter
 
@@ -64,9 +63,8 @@ class Botvin_User_Final(models.Model):
     answer_set = models.ManyToManyField(Answer)
     date_taken = models.DateTimeField('date taken')
 
-#===============================================================================
-# class Choice(models.Model):
-#     user = models.ForeignKey(User)
-#     selection = models.ForeignKey(Answer)
-#===============================================================================
+    class Meta:
+        verbose_name = "Botvin User"
+
+
 

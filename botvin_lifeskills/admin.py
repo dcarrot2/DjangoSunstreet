@@ -12,5 +12,5 @@ class QuestionAdmin(admin.ModelAdmin):
 class RunAdmin(admin.ModelAdmin):
     list_display = ['user_key','school','date_taken']
 
-admin.site.register(User, UserAdmin)
+
 admin.site.register(Botvin_User_Final, RunAdmin)

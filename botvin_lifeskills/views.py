@@ -9,7 +9,6 @@ import datetime
 import urllib2
 import xlwt
 import uuid
-# Create your views here.
 
 
 def temp(request):
@@ -35,8 +34,6 @@ def excel(request, school_level):
 
     for q in Question.objects.get_queryset().filter(school_level=school_level):
         columns.append((q.question, 8000))
-
-    print "Col: ", columns
 
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
@@ -159,8 +156,7 @@ def index(request):
     return response
 
 def end(request):
-    print 3
-
+    
     return render(request,"botvin/end.html")
 
 
