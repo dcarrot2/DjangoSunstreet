@@ -19,7 +19,7 @@ def events_to_android(request):
             response[eventCount].append({'event_youtube':event.youTube_link})
             response[eventCount].append({'event_description': event.description})
             response[eventCount].append({'event_date':json.dumps(event.date, cls=DateTimeEncoder)})
-            response[eventCount].append({'even_url':event.link_to_event})
+            response[eventCount].append({'event_url':event.link_to_event})
 
             #response['event_count']['event_youtube'] = event.youTube_link
             #esponse['event_count']['event_description'] = event.description
